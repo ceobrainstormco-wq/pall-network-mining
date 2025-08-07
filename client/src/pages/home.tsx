@@ -1,6 +1,7 @@
 import { MiningDashboard } from "@/components/mining-dashboard";
 import { UserProfile } from "@/components/auth/UserProfile";
 import { UpgradeStatus } from "@/components/upgrades/UpgradeStatus";
+import { HamburgerMenu } from "@/components/navigation/HamburgerMenu";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Zap } from "lucide-react";
@@ -24,6 +25,9 @@ export default function Home() {
           }}
         />
       </div>
+
+      {/* Hamburger Menu */}
+      <HamburgerMenu />
 
       {/* Main Container */}
       <div className="relative min-h-screen flex flex-col items-center justify-center p-4">

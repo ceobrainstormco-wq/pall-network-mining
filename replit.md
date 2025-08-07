@@ -11,10 +11,11 @@ Preferred communication style: Simple, everyday language.
 ## Frontend Architecture
 - **React 18** with TypeScript for the client-side application
 - **Vite** as the build tool and development server with HMR support
-- **Wouter** for lightweight client-side routing (single page app with home and 404 pages)
+- **Wouter** for lightweight client-side routing with 8 main pages (home, upgrades, profile, team, invitation, kyc, language, about)
 - **TanStack Query** for server state management and API interactions
 - **React Hook Form** with Zod validation for form handling
-- **Custom hooks** pattern for game logic (`useMining`, `useMobile`, `useToast`)
+- **Custom hooks** pattern for game logic (`useMining`, `useMobile`, `useToast`, `useUpgrades`)
+- **Hamburger menu navigation** with responsive mobile-first design
 
 ## UI Framework
 - **Tailwind CSS** for styling with custom dark theme configuration
@@ -60,6 +61,12 @@ Preferred communication style: Simple, everyday language.
 - **Custom App Icons** generated from user's PALL Network logo (favicon.ico, icon-192.png, icon-512.png)
 - **Responsive design** optimized for mobile devices
 - **Offline-first approach** with localStorage fallback
+
+## Navigation System
+- **Hamburger menu** positioned in top-right corner for easy mobile access
+- **8 main sections**: Profile (user settings), Team (referral management), Invitation Code (sharing system), KYC Verification (coming soon), Language (multi-language support), About (project information), plus Sign Out
+- **Consistent navigation** across all pages with back buttons and menu integration
+- **Mobile-optimized** overlay menu with backdrop blur and smooth animations
 
 ## Development Tools
 - **TypeScript** for type safety across frontend and backend

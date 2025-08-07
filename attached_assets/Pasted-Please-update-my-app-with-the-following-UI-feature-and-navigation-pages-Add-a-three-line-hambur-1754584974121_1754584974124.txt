@@ -1,0 +1,91 @@
+Please update my app with the following UI feature and navigation pages:
+
+Add a three-line (hamburger) menu icon on the top right corner of the app.
+
+When a user taps on this icon, display the following menu options in a vertical list:
+
+Profile
+
+Your Team
+
+Invitation Code
+
+KYC Verification
+
+Language
+
+About
+
+Sign Out
+
+Now please create separate pages/screens with basic UI and functionality for each of these options:
+
+✅ 1. Profile
+When user clicks on "Profile", take them to a page where they can:
+
+View and edit their Username
+
+Enter their Full Name
+
+Select Gender
+
+Pick their Date of Birth
+
+Add a Save button to save these changes (you may simulate saving without backend)
+
+✅ 2. Your Team
+
+Show a placeholder text like "You have not invited any team members yet."
+
+Option to invite users in future (optional)
+
+✅ 3. Invitation Code
+
+Show user’s unique invite code (e.g. ABC123)
+
+Add a copy button beside the code
+
+Show number of successful referrals (e.g., "You’ve invited 3 users")
+
+✅ 4. KYC Verification
+
+Just show "Coming Soon" on this screen. No upload or input fields required yet.
+
+✅ 5. Language
+
+Show a dropdown with 2–3 language options (English, Urdu, etc.)
+
+On selecting a language, display "Language updated" message (no full translation needed now)
+
+✅ 6. About
+
+Show app name, version (e.g. v1.0), and a short paragraph like:
+
+Add an "About" section inside the app (accessible from the side menu icon). The section should display the following content in paragraph format, properly formatted for readability:
+
+---
+
+**About Pall Network**
+
+Pall Network is a decentralized Web3 project focused on bringing blockchain mining and earning opportunities to mobile users around the world. Our vision is to empower individuals by giving them access to secure, user-friendly, and innovative tools to participate in the growing crypto economy — right from their smartphones.
+
+Through our app, users can mine Pall Tokens, build strong teams, and earn rewards in a fair and transparent environment. Our platform integrates Web3 technologies like MetaMask, smart contracts, and BEP-20 token standards to ensure security, transparency, and true ownership of digital assets.
+
+We believe in community growth, long-term sustainability, and the power of blockchain to change lives. Join us in this digital revolution — and be a part of the future.
+
+---
+
+Make sure this section is styled clearly with proper margins and font styling so users can easily read and understand our project's mission.
+
+
+✅ 7. Sign Out
+
+Clicking "Sign Out" should take user back to login/signup page and clear local session
+
+🛡️ Important Security Note:
+
+Also ensure that the Web3 wallet address used for payments (USDT BEP-20) is not visible anywhere inside the app UI.
+
+Wallet address and payment details should be securely hidden from all users, including package buyers.
+
+Please implement this as part of the existing UI structure. Thanks!

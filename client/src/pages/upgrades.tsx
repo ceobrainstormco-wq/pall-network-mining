@@ -1,4 +1,5 @@
 import { UpgradePanel } from "@/components/upgrades/UpgradePanel";
+import { HamburgerMenu } from "@/components/navigation/HamburgerMenu";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
@@ -22,6 +23,9 @@ export default function Upgrades() {
           }}
         />
       </div>
+
+      {/* Hamburger Menu */}
+      <HamburgerMenu />
 
       {/* Main Container */}
       <div className="relative min-h-screen flex flex-col items-center justify-center p-4 py-16">
