@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// Temporarily hardcode correct values since env vars are swapped
+// Fixed Firebase configuration with correct values
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "pall-network-app.firebaseapp.com",
@@ -9,6 +9,13 @@ const firebaseConfig = {
   storageBucket: "pall-network-app.appspot.com",
   appId: "1:513633967334:web:a242605682cc223a972f27",
 };
+
+// Force console log to verify correct config is loaded
+console.log("🔥 Firebase Config Loaded:", {
+  authDomain: firebaseConfig.authDomain,
+  projectId: firebaseConfig.projectId,
+  timestamp: new Date().toISOString()
+});
 
 // Debug: Log Firebase config (without API key for security)
 console.log('Firebase Config Check:', {
