@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { getCurrentSpeedMultiplier } from "@/types/upgrades";
 
 interface MiningState {
   totalCoins: number;
@@ -77,8 +78,12 @@ export function useMining() {
   const handleMining = useCallback(() => {
     if (!canMine()) return;
 
+    // Get current speed multiplier for the user
+    const speedMultiplier = user?.uid ? getCurrentSpeedMultiplier(user.uid) : 1;
+    const coinsToAdd = COINS_PER_MINE * speedMultiplier;
+
     const newState: MiningState = {
-      totalCoins: gameState.totalCoins + COINS_PER_MINE,
+      totalCoins: gameState.totalCoins + coinsToAdd,
       lastMineTime: Date.now(),
     };
 
@@ -93,7 +98,7 @@ export function useMining() {
         coinCounter.style.transform = 'scale(1)';
       }, 300);
     }
-  }, [gameState, canMine, saveGameState]);
+  }, [gameState, canMine, saveGameState, user?.uid]);
 
   // Update remaining time every second
   useEffect(() => {
@@ -117,5 +122,6 @@ export function useMining() {
     remainingTime,
     handleMining,
     formatTime,
+    speedMultiplier: user?.uid ? getCurrentSpeedMultiplier(user.uid) : 1,
   };
 }

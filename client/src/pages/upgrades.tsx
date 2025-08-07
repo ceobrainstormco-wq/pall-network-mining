@@ -1,11 +1,9 @@
-import { MiningDashboard } from "@/components/mining-dashboard";
-import { UserProfile } from "@/components/auth/UserProfile";
-import { UpgradeStatus } from "@/components/upgrades/UpgradeStatus";
+import { UpgradePanel } from "@/components/upgrades/UpgradePanel";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Zap } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
-export default function Home() {
+export default function Upgrades() {
   return (
     <div className="relative min-h-screen bg-slate-900 text-slate-50 font-sans">
       {/* Futuristic Crypto Background */}
@@ -26,7 +24,22 @@ export default function Home() {
       </div>
 
       {/* Main Container */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center p-4">
+      <div className="relative min-h-screen flex flex-col items-center justify-center p-4 py-16">
+        
+        {/* Back Button */}
+        <div className="absolute top-6 left-6">
+          <Link href="/">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-slate-800/50 border-slate-600 text-slate-300 hover:bg-slate-700/50 hover:text-white"
+              data-testid="back-button"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Mining
+            </Button>
+          </Link>
+        </div>
         {/* Header */}
         <header className="text-center mb-8">
           {/* App Logo/Icon */}
@@ -42,38 +55,15 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent mb-2">
             Pall Network
           </h1>
-          <p className="text-slate-400 text-lg">Crypto Mining Simulator</p>
+          <p className="text-slate-400 text-lg">Mining Speed Upgrades</p>
         </header>
 
-        {/* User Profile */}
-        <div className="w-full max-w-md mx-auto mb-4">
-          <UserProfile />
-        </div>
-
-        {/* Upgrade Status */}
-        <div className="w-full max-w-md mx-auto mb-4">
-          <UpgradeStatus />
-        </div>
-
-        {/* Navigation */}
-        <div className="w-full max-w-md mx-auto mb-6">
-          <Link href="/upgrades">
-            <Button 
-              className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 transition-all duration-300 hover:scale-105"
-              data-testid="upgrades-button"
-            >
-              <Zap className="w-5 h-5 mr-2" />
-              Mining Speed Upgrades
-            </Button>
-          </Link>
-        </div>
-
-        {/* Mining Dashboard */}
-        <MiningDashboard />
+        {/* Upgrade Panel */}
+        <UpgradePanel />
 
         {/* Footer */}
-        <footer className="mt-8 text-center text-slate-500 text-sm">
-          <p>&copy; 2024 Pall Network. Mining simulation app.</p>
+        <footer className="mt-16 text-center text-slate-500 text-sm">
+          <p>&copy; 2024 Pall Network. Secure crypto mining upgrades.</p>
         </footer>
       </div>
     </div>

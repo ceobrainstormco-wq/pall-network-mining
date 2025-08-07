@@ -3,7 +3,7 @@ import { useMining } from "@/hooks/use-mining";
 import { DollarSign } from "lucide-react";
 
 export function MiningDashboard() {
-  const { totalCoins, canMine, remainingTime } = useMining();
+  const { totalCoins, canMine, remainingTime, speedMultiplier } = useMining();
 
   return (
     <main className="w-full max-w-md mx-auto">
@@ -45,7 +45,13 @@ export function MiningDashboard() {
       <div className="bg-slate-800/20 backdrop-blur-md rounded-xl p-4 border border-purple-500/20 shadow-lg shadow-purple-500/10">
         <div className="flex items-center justify-between mb-3">
           <span className="text-slate-400">Mining Rate:</span>
-          <span className="text-green-400 font-semibold">1 PALL / Click</span>
+          <span className="text-green-400 font-semibold">{speedMultiplier} PALL / Click</span>
+        </div>
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-slate-400">Speed Multiplier:</span>
+          <span className={`font-semibold ${speedMultiplier > 1 ? 'text-cyan-400' : 'text-slate-400'}`}>
+            {speedMultiplier}x
+          </span>
         </div>
         <div className="flex items-center justify-between mb-3">
           <span className="text-slate-400">Cooldown:</span>

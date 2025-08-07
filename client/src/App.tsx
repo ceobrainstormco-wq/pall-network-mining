@@ -7,11 +7,13 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import Upgrades from "@/pages/upgrades";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/upgrades" component={Upgrades} />
       <Route component={NotFound} />
     </Switch>
   );

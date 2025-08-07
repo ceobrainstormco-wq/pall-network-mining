@@ -45,6 +45,15 @@ Preferred communication style: Simple, everyday language.
 - **User-specific mining progress** stored per authenticated user
 - **Automatic sign-out functionality** with proper error handling
 
+## Upgrade System
+- **Mining Speed Upgrades** with three packages: 6 months (2x speed, 5 USDT), 1 year (3x speed, 8 USDT), unlimited (3x speed, 18 USDT)
+- **Web3 Payment Integration** using USDT BEP-20 on BNB Smart Chain via MetaMask
+- **Secure payment processing** with transaction verification and blockchain confirmation
+- **Automatic upgrade activation** with immediate speed multiplier application
+- **Expiry tracking** for time-limited packages with automatic reversion to standard speed
+- **User-specific upgrade storage** tied to Firebase UID for persistent upgrade benefits
+- **Wallet address security** - recipient address stored only in backend Web3 code, never exposed in frontend
+
 ## PWA Features
 - **Service Worker** for offline caching and background sync
 - **Web App Manifest** with proper icons and metadata using custom PALL Network branding
@@ -69,6 +78,12 @@ Preferred communication style: Simple, everyday language.
 - **React ecosystem**: react, react-dom, @vitejs/plugin-react
 - **Express.js**: express with TypeScript support
 - **Vite**: Modern build tool with plugins for development
+
+## Web3 & Blockchain
+- **Web3.js**: Ethereum/BSC blockchain interaction and smart contract integration
+- **Ethers.js**: Alternative Web3 library for blockchain operations
+- **MetaMask integration**: Wallet connection and transaction signing
+- **BNB Smart Chain**: Blockchain network for USDT BEP-20 payments
 
 ## UI and Styling
 - **Tailwind CSS**: Utility-first CSS framework with PostCSS
