@@ -1,5 +1,4 @@
 import { MiningDashboard } from "@/components/mining-dashboard";
-import { Zap } from "lucide-react";
 
 export default function Home() {
   return (
@@ -19,8 +18,12 @@ export default function Home() {
         {/* Header */}
         <header className="text-center mb-8">
           {/* App Logo/Icon */}
-          <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg">
-            <Zap className="w-8 h-8 text-white" />
+          <div className="w-16 h-16 rounded-2xl overflow-hidden mb-4 mx-auto shadow-lg border-2 border-cyan-400/30">
+            <img 
+              src="/pall-logo.jpg" 
+              alt="Pall Network Logo" 
+              className="w-full h-full object-cover"
+            />
           </div>
           
           {/* App Name */}

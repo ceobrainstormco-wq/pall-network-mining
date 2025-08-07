@@ -38,7 +38,8 @@ Preferred communication style: Simple, everyday language.
 
 ## PWA Features
 - **Service Worker** for offline caching and background sync
-- **Web App Manifest** with proper icons and metadata
+- **Web App Manifest** with proper icons and metadata using custom PALL Network branding
+- **Custom App Icons** generated from user's PALL Network logo (favicon.ico, icon-192.png, icon-512.png)
 - **Responsive design** optimized for mobile devices
 - **Offline-first approach** with localStorage fallback
 

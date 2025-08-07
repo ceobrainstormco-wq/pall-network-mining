@@ -1,0 +1,66 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="256" fill="url(#background)" />
+  
+  <!-- Outer Ring -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="url(#ringGradient)" stroke-width="4" opacity="0.6" />
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#ringGradient)" stroke-width="2" opacity="0.4" />
+  
+  <!-- Inner Circle -->
+  <circle cx="256" cy="256" r="140" fill="url(#innerCircle)" stroke="url(#borderGradient)" stroke-width="3" />
+  
+  <!-- PALL Text -->
+  <text x="256" y="280" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="url(#textGradient)">PALL</text>
+  
+  <!-- Subtitle -->
+  <text x="256" y="310" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="400" text-anchor="middle" fill="#64748B" opacity="0.8">NETWORK COMMERCE</text>
+  
+  <!-- Central Glow -->
+  <circle cx="256" cy="256" r="80" fill="url(#centralGlow)" opacity="0.3" />
+  
+  <!-- Decorative Elements -->
+  <circle cx="256" cy="180" r="3" fill="#06B6D4" opacity="0.8" />
+  <circle cx="320" cy="256" r="2" fill="#10B981" opacity="0.6" />
+  <circle cx="256" cy="332" r="3" fill="#06B6D4" opacity="0.8" />
+  <circle cx="192" cy="256" r="2" fill="#10B981" opacity="0.6" />
+  
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="background" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="70%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+    
+    <!-- Ring Gradient -->
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    
+    <!-- Inner Circle Gradient -->
+    <radialGradient id="innerCircle" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </radialGradient>
+    
+    <!-- Border Gradient -->
+    <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" opacity="0.8" />
+      <stop offset="100%" stop-color="#10B981" opacity="0.8" />
+    </linearGradient>
+    
+    <!-- Text Gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    
+    <!-- Central Glow -->
+    <radialGradient id="centralGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+  </defs>
+</svg>
