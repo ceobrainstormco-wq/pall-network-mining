@@ -73,9 +73,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      console.log('🔥 Starting Google sign-in...');
+      console.log('🔥 Firebase config check:', {
+        authDomain: auth.app.options.authDomain,
+        projectId: auth.app.options.projectId,
+        hasApiKey: !!auth.app.options.apiKey
+      });
+      
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('🔥 Sign-in successful:', result.user.email);
+      
     } catch (error: any) {
-      console.error('Error signing in with Google:', error);
+      console.error('🔥 Google sign-in error:', error);
+      console.error('🔥 Error code:', error.code);
+      console.error('🔥 Error message:', error.message);
       throw error;
     }
   };

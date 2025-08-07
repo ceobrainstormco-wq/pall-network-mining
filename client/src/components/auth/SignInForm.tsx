@@ -105,9 +105,8 @@ export function SignInForm() {
               <p className="text-slate-400">Please sign in to start mining PALL tokens</p>
             </div>
 
-            {/* Sign In Buttons */}
+            {/* Simple Google Sign In - Testing Mode */}
             <div className="space-y-4">
-              {/* Google Sign In */}
               <Button
                 onClick={() => handleSignIn('google')}
                 disabled={loadingProvider !== null}
@@ -130,51 +129,10 @@ export function SignInForm() {
                 </span>
               </Button>
 
-              {/* Facebook Sign In */}
-              <Button
-                onClick={() => handleSignIn('facebook')}
-                disabled={loadingProvider !== null}
-                data-testid="facebook-signin-button"
-                className="w-full font-bold py-4 px-6 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-blue-600 hover:bg-blue-700 text-white"
-                style={{ height: 'auto' }}
-              >
-                <span className="flex items-center justify-center">
-                  {loadingProvider === 'facebook' ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
-                      Signing in...
-                    </>
-                  ) : (
-                    <>
-                      <FaFacebook className="w-5 h-5 mr-3" />
-                      Continue with Facebook
-                    </>
-                  )}
-                </span>
-              </Button>
-
-              {/* Twitter Sign In */}
-              <Button
-                onClick={() => handleSignIn('twitter')}
-                disabled={loadingProvider !== null}
-                data-testid="twitter-signin-button"
-                className="w-full font-bold py-4 px-6 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-sky-500 hover:bg-sky-600 text-white"
-                style={{ height: 'auto' }}
-              >
-                <span className="flex items-center justify-center">
-                  {loadingProvider === 'twitter' ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
-                      Signing in...
-                    </>
-                  ) : (
-                    <>
-                      <FaTwitter className="w-5 h-5 mr-3" />
-                      Continue with Twitter
-                    </>
-                  )}
-                </span>
-              </Button>
+              {/* Temporarily disabled other providers for testing */}
+              <div className="text-center text-sm text-slate-500">
+                <p>Facebook and Twitter sign-in coming soon</p>
+              </div>
             </div>
 
             {/* Info Text */}

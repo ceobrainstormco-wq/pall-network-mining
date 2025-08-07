@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from "firebase/auth";
 
-// Firebase configuration with your project
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyDAWM_IEJI6kHo4Ov-8DyRXOvZcEn3mLg8",
-  authDomain: "pall-network-mining.firebaseapp.com",
-  projectId: "pall-network-mining", 
-  storageBucket: "pall-network-mining.appspot.com",
-  appId: "1:912242352810:web:8873d57f25d1a7412466d3",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebasestorage.app`,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Debug: Log Firebase config (without API key for security)
