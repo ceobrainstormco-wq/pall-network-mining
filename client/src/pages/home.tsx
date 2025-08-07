@@ -1,4 +1,5 @@
 import { MiningDashboard } from "@/components/mining-dashboard";
+import { UserProfile } from "@/components/auth/UserProfile";
 
 export default function Home() {
   return (
@@ -39,6 +40,11 @@ export default function Home() {
           </h1>
           <p className="text-slate-400 text-lg">Crypto Mining Simulator</p>
         </header>
+
+        {/* User Profile */}
+        <div className="w-full max-w-md mx-auto mb-4">
+          <UserProfile />
+        </div>
 
         {/* Mining Dashboard */}
         <MiningDashboard />

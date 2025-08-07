@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface MiningState {
   totalCoins: number;
@@ -7,19 +8,27 @@ interface MiningState {
 
 const MINE_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const COINS_PER_MINE = 1;
-const STORAGE_KEY = 'pallNetworkGame';
+const STORAGE_KEY_PREFIX = 'pallNetworkGame';
 
 export function useMining() {
+  const { user } = useAuth();
   const [gameState, setGameState] = useState<MiningState>({
     totalCoins: 0,
     lastMineTime: 0,
   });
   const [remainingTime, setRemainingTime] = useState(0);
 
+  // Generate user-specific storage key
+  const getStorageKey = useCallback(() => {
+    if (!user?.uid) return `${STORAGE_KEY_PREFIX}_anonymous`;
+    return `${STORAGE_KEY_PREFIX}_${user.uid}`;
+  }, [user?.uid]);
+
   // Load game state from localStorage
   const loadGameState = useCallback(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      const saved = localStorage.getItem(storageKey);
       if (saved) {
         const parsedState = JSON.parse(saved);
         setGameState(parsedState);
@@ -27,16 +36,17 @@ export function useMining() {
     } catch (error) {
       console.error('Failed to load game state:', error);
     }
-  }, []);
+  }, [getStorageKey]);
 
   // Save game state to localStorage
   const saveGameState = useCallback((state: MiningState) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      const storageKey = getStorageKey();
+      localStorage.setItem(storageKey, JSON.stringify(state));
     } catch (error) {
       console.error('Failed to save game state:', error);
     }
-  }, []);
+  }, [getStorageKey]);
 
   // Check if mining is allowed
   const canMine = useCallback(() => {
@@ -94,10 +104,12 @@ export function useMining() {
     return () => clearInterval(interval);
   }, [getRemainingTime]);
 
-  // Load initial state
+  // Load initial state when user changes
   useEffect(() => {
-    loadGameState();
-  }, [loadGameState]);
+    if (user) {
+      loadGameState();
+    }
+  }, [user, loadGameState]);
 
   return {
     totalCoins: gameState.totalCoins,

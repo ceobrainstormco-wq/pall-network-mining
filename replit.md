@@ -31,10 +31,19 @@ Preferred communication style: Simple, everyday language.
 - **Custom error handling** middleware for consistent error responses
 
 ## Data Storage
-- **Browser localStorage** for client-side game state persistence (coins, last mine time)
+- **Browser localStorage** for client-side game state persistence with user-specific keys (coins, last mine time)
+- **User-specific data isolation** via Firebase UID-based storage keys
 - **Drizzle ORM** configured for PostgreSQL with schema definitions
 - **Database abstraction layer** with IStorage interface supporting both memory and database backends
 - **Migration system** ready for database schema changes
+
+## Authentication System
+- **Firebase Authentication** with Google Sign-In integration
+- **Protected mining functionality** requiring user authentication
+- **User profile display** showing Google account information
+- **Secure session management** via Firebase Auth state persistence
+- **User-specific mining progress** stored per authenticated user
+- **Automatic sign-out functionality** with proper error handling
 
 ## PWA Features
 - **Service Worker** for offline caching and background sync
