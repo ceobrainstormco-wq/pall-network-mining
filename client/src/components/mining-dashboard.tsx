@@ -8,7 +8,7 @@ export function MiningDashboard() {
   return (
     <main className="w-full max-w-md mx-auto">
       {/* Mining Stats Card */}
-      <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-slate-700/50 shadow-xl">
+      <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 mb-6 border border-cyan-500/20 shadow-2xl shadow-cyan-500/10">
         {/* Coin Counter */}
         <div className="text-center mb-6">
           <div className="flex items-center justify-center mb-2">
@@ -42,7 +42,7 @@ export function MiningDashboard() {
       <MiningControls />
 
       {/* Mining Info */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-4 border border-slate-700/30">
+      <div className="bg-slate-800/20 backdrop-blur-md rounded-xl p-4 border border-purple-500/20 shadow-lg shadow-purple-500/10">
         <div className="flex items-center justify-between mb-3">
           <span className="text-slate-400">Mining Rate:</span>
           <span className="text-green-400 font-semibold">1 PALL / Click</span>

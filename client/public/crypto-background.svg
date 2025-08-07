@@ -1,0 +1,178 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="mainBg" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="40%" stop-color="#16213e" />
+      <stop offset="70%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#0a0a0a" />
+    </radialGradient>
+    
+    <linearGradient id="circuitGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" opacity="0.8" />
+      <stop offset="50%" stop-color="#8b5cf6" opacity="0.6" />
+      <stop offset="100%" stop-color="#06b6d4" opacity="0.4" />
+    </linearGradient>
+    
+    <linearGradient id="nodeGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    
+    <!-- Filters -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#mainBg)" />
+  
+  <!-- Abstract Circuit Patterns -->
+  <g opacity="0.3" filter="url(#softGlow)">
+    <!-- Horizontal Circuit Lines -->
+    <line x1="0" y1="200" x2="600" y2="200" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="700" y1="200" x2="1200" y2="200" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="1300" y1="200" x2="1920" y2="200" stroke="url(#circuitGlow)" stroke-width="2" />
+    
+    <line x1="200" y1="400" x2="800" y2="400" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="900" y1="400" x2="1500" y2="400" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="1600" y1="400" x2="1920" y2="400" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    
+    <line x1="0" y1="600" x2="500" y2="600" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="600" y1="600" x2="1100" y2="600" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="1200" y1="600" x2="1920" y2="600" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    
+    <line x1="100" y1="800" x2="700" y2="800" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="800" y1="800" x2="1400" y2="800" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="1500" y1="800" x2="1920" y2="800" stroke="url(#circuitGlow)" stroke-width="2" />
+    
+    <!-- Vertical Circuit Lines -->
+    <line x1="300" y1="0" x2="300" y2="300" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="300" y1="400" x2="300" y2="700" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="300" y1="800" x2="300" y2="1080" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    
+    <line x1="600" y1="0" x2="600" y2="180" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="600" y1="220" x2="600" y2="380" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="600" y1="420" x2="600" y2="580" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="600" y1="620" x2="600" y2="1080" stroke="url(#circuitGlow)" stroke-width="2" />
+    
+    <line x1="1200" y1="0" x2="1200" y2="180" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="1200" y1="220" x2="1200" y2="380" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="1200" y1="420" x2="1200" y2="580" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    <line x1="1200" y1="620" x2="1200" y2="1080" stroke="url(#circuitGlow)" stroke-width="1.5" />
+    
+    <line x1="1500" y1="0" x2="1500" y2="280" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="1500" y1="320" x2="1500" y2="580" stroke="url(#circuitGlow)" stroke-width="2" />
+    <line x1="1500" y1="620" x2="1500" y2="1080" stroke="url(#circuitGlow)" stroke-width="2" />
+  </g>
+  
+  <!-- Blockchain Nodes -->
+  <g filter="url(#glow)">
+    <!-- Large Central Nodes -->
+    <circle cx="600" cy="200" r="8" fill="url(#nodeGlow)" opacity="0.8" />
+    <circle cx="1200" cy="200" r="8" fill="url(#nodeGlow)" opacity="0.8" />
+    <circle cx="300" cy="400" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    <circle cx="800" cy="400" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    <circle cx="1500" cy="400" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    <circle cx="500" cy="600" r="8" fill="url(#nodeGlow)" opacity="0.8" />
+    <circle cx="1100" cy="600" r="8" fill="url(#nodeGlow)" opacity="0.8" />
+    <circle cx="300" cy="800" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    <circle cx="700" cy="800" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    <circle cx="1400" cy="800" r="6" fill="url(#nodeGlow)" opacity="0.7" />
+    
+    <!-- Small Connection Nodes -->
+    <circle cx="300" cy="300" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="300" cy="700" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="600" cy="180" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="600" cy="220" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="600" cy="380" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="600" cy="420" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="600" cy="580" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="600" cy="620" r="3" fill="#8b5cf6" opacity="0.6" />
+    <circle cx="1200" cy="180" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1200" cy="220" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1200" cy="380" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1200" cy="420" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1200" cy="580" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1200" cy="620" r="3" fill="#06b6d4" opacity="0.6" />
+    <circle cx="1500" cy="280" r="3" fill="#a855f7" opacity="0.6" />
+    <circle cx="1500" cy="320" r="3" fill="#a855f7" opacity="0.6" />
+    <circle cx="1500" cy="580" r="3" fill="#a855f7" opacity="0.6" />
+    <circle cx="1500" cy="620" r="3" fill="#a855f7" opacity="0.6" />
+  </g>
+  
+  <!-- Digital Data Flow Lines -->
+  <g opacity="0.4" filter="url(#softGlow)">
+    <!-- Curved Connection Lines -->
+    <path d="M600 200 Q 900 150 1200 200" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6" />
+    <path d="M300 400 Q 550 350 800 400" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.6" />
+    <path d="M800 400 Q 1150 350 1500 400" stroke="#06b6d4" stroke-width="1.5" fill="none" opacity="0.6" />
+    <path d="M500 600 Q 800 550 1100 600" stroke="#a855f7" stroke-width="1.5" fill="none" opacity="0.6" />
+    <path d="M300 800 Q 500 750 700 800" stroke="#6366f1" stroke-width="1.5" fill="none" opacity="0.6" />
+    <path d="M700 800 Q 1050 750 1400 800" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.6" />
+    
+    <!-- Vertical Connections -->
+    <path d="M300 400 Q 250 500 300 600" stroke="#06b6d4" stroke-width="1" fill="none" opacity="0.5" />
+    <path d="M600 200 Q 550 300 500 400" stroke="#a855f7" stroke-width="1" fill="none" opacity="0.5" />
+    <path d="M1200 200 Q 1250 300 1300 400" stroke="#6366f1" stroke-width="1" fill="none" opacity="0.5" />
+    <path d="M1100 600 Q 1150 700 1200 800" stroke="#8b5cf6" stroke-width="1" fill="none" opacity="0.5" />
+  </g>
+  
+  <!-- Hexagonal Tech Elements -->
+  <g opacity="0.2" filter="url(#softGlow)">
+    <!-- Large Hexagons -->
+    <polygon points="150,100 200,75 250,100 250,150 200,175 150,150" fill="none" stroke="#6366f1" stroke-width="1" />
+    <polygon points="1650,900 1700,875 1750,900 1750,950 1700,975 1650,950" fill="none" stroke="#8b5cf6" stroke-width="1" />
+    <polygon points="50,500 100,475 150,500 150,550 100,575 50,550" fill="none" stroke="#06b6d4" stroke-width="1" />
+    <polygon points="1750,200 1800,175 1850,200 1850,250 1800,275 1750,250" fill="none" stroke="#a855f7" stroke-width="1" />
+    
+    <!-- Small Hexagons -->
+    <polygon points="450,50 470,40 490,50 490,70 470,80 450,70" fill="none" stroke="#6366f1" stroke-width="0.8" />
+    <polygon points="850,30 870,20 890,30 890,50 870,60 850,50" fill="none" stroke="#8b5cf6" stroke-width="0.8" />
+    <polygon points="1350,80 1370,70 1390,80 1390,100 1370,110 1350,100" fill="none" stroke="#06b6d4" stroke-width="0.8" />
+    <polygon points="350,950 370,940 390,950 390,970 370,980 350,970" fill="none" stroke="#a855f7" stroke-width="0.8" />
+    <polygon points="950,980 970,970 990,980 990,1000 970,1010 950,1000" fill="none" stroke="#6366f1" stroke-width="0.8" />
+    <polygon points="1550,1020 1570,1010 1590,1020 1590,1040 1570,1050 1550,1040" fill="none" stroke="#8b5cf6" stroke-width="0.8" />
+  </g>
+  
+  <!-- Floating Data Particles -->
+  <g opacity="0.6">
+    <circle cx="400" cy="150" r="1.5" fill="#6366f1">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 20,-10; 0,0" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="750" cy="250" r="1" fill="#8b5cf6">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -15,5; 0,0" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1050" cy="180" r="1.5" fill="#06b6d4">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 10,15; 0,0" dur="5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="200" cy="350" r="1" fill="#a855f7">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 25,-5; 0,0" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1300" cy="450" r="1.5" fill="#6366f1">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -20,10; 0,0" dur="4.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="450" cy="750" r="1" fill="#8b5cf6">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 15,-8; 0,0" dur="3.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="950" cy="650" r="1.5" fill="#06b6d4">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -10,12; 0,0" dur="4.8s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1600" cy="750" r="1" fill="#a855f7">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 18,-15; 0,0" dur="3.8s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>

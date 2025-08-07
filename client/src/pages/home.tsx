@@ -3,12 +3,19 @@ import { MiningDashboard } from "@/components/mining-dashboard";
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-slate-900 text-slate-50 font-sans">
-      {/* Background Pattern */}
-      <div className="fixed inset-0 opacity-5 pointer-events-none">
+      {/* Futuristic Crypto Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <img 
+          src="/crypto-background.svg" 
+          alt="" 
+          className="w-full h-full object-cover opacity-60"
+          style={{ minWidth: '100vw', minHeight: '100vh' }}
+        />
+        {/* Additional gradient overlay for depth */}
         <div 
-          className="absolute inset-0" 
+          className="absolute inset-0 opacity-40" 
           style={{
-            backgroundImage: "radial-gradient(circle at 25% 25%, #06B6D4 0%, transparent 50%), radial-gradient(circle at 75% 75%, #10B981 0%, transparent 50%)"
+            background: "radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.8) 70%, rgba(15, 23, 42, 0.95) 100%)"
           }}
         />
       </div>

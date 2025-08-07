@@ -6,7 +6,7 @@ export function MiningControls() {
   const { canMine, remainingTime, handleMining, formatTime } = useMining();
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-slate-700/50 shadow-xl">
+    <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 mb-6 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
       {/* Mining Button */}
       <Button
         onClick={handleMining}
