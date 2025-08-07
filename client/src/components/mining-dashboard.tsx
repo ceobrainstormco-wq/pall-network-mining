@@ -1,9 +1,19 @@
 import { MiningControls } from "./mining-controls";
-import { useMining } from "@/hooks/use-mining";
+import { useMiningDb } from "@/hooks/use-mining-db";
 import { DollarSign } from "lucide-react";
 
 export function MiningDashboard() {
-  const { totalCoins, canMine, remainingTime, speedMultiplier } = useMining();
+  const { coins: totalCoins, canMine, timeUntilNextMine: remainingTime, speedMultiplier, isLoading } = useMiningDb();
+
+  if (isLoading) {
+    return (
+      <main className="w-full max-w-md mx-auto">
+        <div className="flex items-center justify-center h-32">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="w-full max-w-md mx-auto">

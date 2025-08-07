@@ -1,33 +1,47 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, LogIn } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
 
 export function SignInForm() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithFacebook, signInWithTwitter } = useAuth();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
+  const handleSignIn = async (provider: 'google' | 'facebook' | 'twitter') => {
+    setLoadingProvider(provider);
     try {
-      await signInWithGoogle();
+      switch (provider) {
+        case 'google':
+          await signInWithGoogle();
+          break;
+        case 'facebook':
+          await signInWithFacebook();
+          break;
+        case 'twitter':
+          await signInWithTwitter();
+          break;
+      }
+      
       toast({
         title: "Welcome to Pall Network!",
         description: "You're now signed in and ready to start mining.",
       });
     } catch (error: any) {
-      console.error('Sign in error:', error);
+      console.error(`${provider} sign in error:`, error);
       
-      let errorMessage = "There was an error signing in with Google. Please try again.";
+      let errorMessage = `There was an error signing in with ${provider}. Please try again.`;
       
-      if (error.message?.includes('unauthorized-domain')) {
-        errorMessage = "This domain is not authorized for Google sign-in. Please contact support.";
-      } else if (error.message?.includes('operation-not-allowed')) {
-        errorMessage = "Google sign-in is not enabled in Firebase. Please contact support.";
-      } else if (error.code) {
-        errorMessage = `Authentication error: ${error.code}`;
+      if (error.code === 'auth/popup-blocked') {
+        errorMessage = "Popup was blocked. Please allow popups and try again.";
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = "Sign-in was cancelled. Please try again.";
+      } else if (error.code === 'auth/unauthorized-domain') {
+        errorMessage = "This domain is not authorized. Please contact support.";
+      } else if (error.code === 'auth/operation-not-allowed') {
+        errorMessage = `${provider} sign-in is not enabled. Please contact support.`;
       }
       
       toast({
@@ -36,7 +50,7 @@ export function SignInForm() {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setLoadingProvider(null);
     }
   };
 
@@ -91,33 +105,83 @@ export function SignInForm() {
               <p className="text-slate-400">Please sign in to start mining PALL tokens</p>
             </div>
 
-            {/* Sign In Button */}
-            <Button
-              onClick={handleGoogleSignIn}
-              disabled={isLoading}
-              data-testid="google-signin-button"
-              className="w-full font-bold py-4 px-8 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:shadow-cyan-500/25 text-white"
-              style={{ height: 'auto' }}
-            >
-              <span className="flex items-center justify-center">
-                {isLoading ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
-                    Signing In...
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="w-5 h-5 mr-3" />
-                    Sign In with Google
-                  </>
-                )}
-              </span>
-            </Button>
+            {/* Sign In Buttons */}
+            <div className="space-y-4">
+              {/* Google Sign In */}
+              <Button
+                onClick={() => handleSignIn('google')}
+                disabled={loadingProvider !== null}
+                data-testid="google-signin-button"
+                className="w-full font-bold py-4 px-6 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-white hover:bg-gray-50 text-gray-700 border border-gray-300"
+                style={{ height: 'auto' }}
+              >
+                <span className="flex items-center justify-center">
+                  {loadingProvider === 'google' ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mr-3" />
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <FaGoogle className="w-5 h-5 mr-3 text-red-500" />
+                      Continue with Google
+                    </>
+                  )}
+                </span>
+              </Button>
+
+              {/* Facebook Sign In */}
+              <Button
+                onClick={() => handleSignIn('facebook')}
+                disabled={loadingProvider !== null}
+                data-testid="facebook-signin-button"
+                className="w-full font-bold py-4 px-6 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-blue-600 hover:bg-blue-700 text-white"
+                style={{ height: 'auto' }}
+              >
+                <span className="flex items-center justify-center">
+                  {loadingProvider === 'facebook' ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <FaFacebook className="w-5 h-5 mr-3" />
+                      Continue with Facebook
+                    </>
+                  )}
+                </span>
+              </Button>
+
+              {/* Twitter Sign In */}
+              <Button
+                onClick={() => handleSignIn('twitter')}
+                disabled={loadingProvider !== null}
+                data-testid="twitter-signin-button"
+                className="w-full font-bold py-4 px-6 text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg bg-sky-500 hover:bg-sky-600 text-white"
+                style={{ height: 'auto' }}
+              >
+                <span className="flex items-center justify-center">
+                  {loadingProvider === 'twitter' ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <FaTwitter className="w-5 h-5 mr-3" />
+                      Continue with Twitter
+                    </>
+                  )}
+                </span>
+              </Button>
+            </div>
 
             {/* Info Text */}
             <div className="mt-6 text-center text-sm text-slate-500">
-              <p>Secure authentication powered by Google</p>
+              <p>Secure authentication powered by Firebase</p>
               <p className="mt-1">Your mining progress will be saved to your account</p>
+              <p className="mt-1">Choose any provider to get started</p>
             </div>
           </div>
         </div>

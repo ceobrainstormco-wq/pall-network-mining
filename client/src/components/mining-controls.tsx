@@ -1,18 +1,28 @@
-import { useMining } from "@/hooks/use-mining";
+import { useMiningDb } from "@/hooks/use-mining-db";
 import { useAuth } from "@/contexts/AuthContext";
 import { Zap, RefreshCw, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MiningControls() {
-  const { canMine, remainingTime, handleMining, formatTime } = useMining();
+  const { mine, canMine, timeUntilNextMine: remainingTime, isMining } = useMiningDb();
   const { user } = useAuth();
+
+  // Format remaining time for display
+  const formatTime = (milliseconds: number) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
 
   return (
     <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 mb-6 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
       {/* Mining Button */}
       <Button
-        onClick={handleMining}
-        disabled={!canMine || !user}
+        onClick={mine}
+        disabled={!canMine || !user || isMining}
         data-testid="mine-button"
         className={`w-full font-bold py-4 px-8 text-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg mb-4 ${
           canMine && user
@@ -27,6 +37,11 @@ export function MiningControls() {
               <Lock className="w-6 h-6 mr-2" />
               Please sign in to start mining
             </>
+          ) : isMining ? (
+            <>
+              <RefreshCw className="w-6 h-6 mr-2 animate-spin" />
+              Mining...
+            </>
           ) : canMine ? (
             <>
               <Zap className="w-6 h-6 mr-2" />
@@ -34,7 +49,7 @@ export function MiningControls() {
             </>
           ) : (
             <>
-              <RefreshCw className="w-6 h-6 mr-2 animate-spin" />
+              <RefreshCw className="w-6 h-6 mr-2" />
               Mining Cooldown
             </>
           )}
