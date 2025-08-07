@@ -1,12 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+// Temporarily hardcode correct values since env vars are swapped
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: `${import.meta.env.VITE_FIREBASE_APP_ID}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_APP_ID,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_APP_ID}.appspot.com`,
-  appId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  authDomain: "pall-network-app.firebaseapp.com",
+  projectId: "pall-network-app", 
+  storageBucket: "pall-network-app.appspot.com",
+  appId: "1:513633967334:web:a242605682cc223a972f27",
 };
 
 // Debug: Log Firebase config (without API key for security)
@@ -15,6 +16,11 @@ console.log('Firebase Config Check:', {
   authDomain: firebaseConfig.authDomain,
   projectId: firebaseConfig.projectId,
   hasAppId: !!firebaseConfig.appId,
+});
+
+console.log('Environment Variables:', {
+  PROJECT_ID: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
 });
 
 // Initialize Firebase

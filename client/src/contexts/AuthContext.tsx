@@ -39,12 +39,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signInWithGoogle = async () => {
     try {
       console.log('Attempting Google sign-in...');
+      console.log('Auth domain being used:', auth.app.options.authDomain);
       const result = await signInWithPopup(auth, googleProvider);
       console.log('Sign-in successful:', result.user?.email);
     } catch (error: any) {
       console.error('Error signing in with Google:', error);
       console.error('Error code:', error.code);
       console.error('Error message:', error.message);
+      
+      // Provide more user-friendly error messages
+      if (error.code === 'auth/popup-blocked') {
+        throw new Error('Popup was blocked by browser. Please allow popups and try again.');
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        throw new Error('Sign-in was cancelled. Please try again.');
+      } else if (error.message.includes('invalid URL')) {
+        throw new Error('Authentication service configuration error. Please contact support.');
+      }
+      
       throw error;
     }
   };
