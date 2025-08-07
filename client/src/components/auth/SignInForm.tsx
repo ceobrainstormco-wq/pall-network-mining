@@ -17,11 +17,22 @@ export function SignInForm() {
         title: "Welcome to Pall Network!",
         description: "You're now signed in and ready to start mining.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Sign in error:', error);
+      
+      let errorMessage = "There was an error signing in with Google. Please try again.";
+      
+      if (error.message?.includes('unauthorized-domain')) {
+        errorMessage = "This domain is not authorized for Google sign-in. Please contact support.";
+      } else if (error.message?.includes('operation-not-allowed')) {
+        errorMessage = "Google sign-in is not enabled in Firebase. Please contact support.";
+      } else if (error.code) {
+        errorMessage = `Authentication error: ${error.code}`;
+      }
+      
       toast({
         title: "Sign In Failed",
-        description: "There was an error signing in with Google. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
