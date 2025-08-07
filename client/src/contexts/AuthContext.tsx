@@ -52,15 +52,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithGoogle = async () => {
     try {
-      console.log('Attempting Google sign-in with redirect...');
-      console.log('Auth domain being used:', auth.app.options.authDomain);
+      console.log('🔥 Attempting Google sign-in with redirect...');
+      console.log('🔥 Auth domain being used:', auth.app.options.authDomain);
+      console.log('🔥 Auth config:', auth.app.options);
       await signInWithRedirect(auth, googleProvider);
+      console.log('🔥 Redirect initiated successfully');
       // Note: signInWithRedirect doesn't return a result immediately
       // The user will be redirected and come back to this page
     } catch (error: any) {
-      console.error('Error signing in with Google:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
+      console.error('🔥 Error signing in with Google:', error);
+      console.error('🔥 Error code:', error.code);
+      console.error('🔥 Error message:', error.message);
+      console.error('🔥 Full error object:', error);
       
       // Provide more user-friendly error messages
       if (error.code === 'auth/operation-not-allowed') {

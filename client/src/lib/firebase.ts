@@ -14,8 +14,11 @@ const firebaseConfig = {
 console.log("🔥 Firebase Config Loaded:", {
   authDomain: firebaseConfig.authDomain,
   projectId: firebaseConfig.projectId,
+  hasApiKey: !!firebaseConfig.apiKey,
   timestamp: new Date().toISOString()
 });
+
+console.log("🔥 Full Config Check:", firebaseConfig);
 
 // Debug: Log Firebase config (without API key for security)
 console.log('Firebase Config Check:', {
