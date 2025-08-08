@@ -1,115 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Outer ring gradient -->
-    <linearGradient id="outerRing" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:1" />
-    </linearGradient>
-    
-    <!-- Inner circle gradient -->
-    <linearGradient id="innerCircle" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0F172A;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#1E293B;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
-    </linearGradient>
-    
-    <!-- Swirl gradient -->
-    <linearGradient id="swirlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#22D3EE;stop-opacity:1" />
-      <stop offset="30%" style="stop-color:#0EA5E9;stop-opacity:1" />
-      <stop offset="70%" style="stop-color:#3B82F6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1D4ED8;stop-opacity:1" />
-    </linearGradient>
-    
-    <!-- Text gradient -->
-    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#E2E8F0;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#CBD5E1;stop-opacity:1" />
+    <!-- Main blue gradient matching the reference -->
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1565C0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1976D2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
     </linearGradient>
     
     <!-- Drop shadow -->
     <filter id="shadow">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
-    </filter>
-    
-    <!-- Glow effect -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge> 
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
     </filter>
   </defs>
   
-  <!-- Outer ring -->
-  <circle cx="256" cy="256" r="248" fill="url(#outerRing)" filter="url(#shadow)"/>
-  <circle cx="256" cy="256" r="220" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  <!-- Main blue circle background -->
+  <circle cx="256" cy="256" r="240" fill="url(#blueGradient)" filter="url(#shadow)"/>
   
-  <!-- Inner circle -->
-  <circle cx="256" cy="256" r="200" fill="url(#innerCircle)"/>
+  <!-- White circular border -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="white" stroke-width="12"/>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="white" stroke-width="8"/>
   
-  <!-- Decorative rings -->
-  <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
-  <circle cx="256" cy="256" r="160" fill="none" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
-  
-  <!-- Swirl pattern -->
-  <g fill="url(#swirlGradient)" opacity="0.8">
-    <!-- Main swirl arms -->
-    <path d="M256 100 Q300 140 320 180 Q340 220 320 260 Q300 300 256 340 Q212 300 192 260 Q172 220 192 180 Q212 140 256 100 Z"/>
-    
-    <!-- Inner swirl -->
-    <path d="M256 140 Q280 160 290 190 Q300 220 290 250 Q280 280 256 300 Q232 280 222 250 Q212 220 222 190 Q232 160 256 140 Z" opacity="0.6"/>
-    
-    <!-- Center spiral -->
-    <circle cx="256" cy="220" r="8" fill="url(#swirlGradient)"/>
-    <circle cx="256" cy="220" r="4" fill="rgba(255,255,255,0.8)"/>
-  </g>
-  
-  <!-- PALL text -->
-  <g filter="url(#glow)">
-    <text x="256" y="280" 
-          font-family="Arial Black, sans-serif" 
-          font-size="48" 
-          font-weight="900" 
-          text-anchor="middle" 
-          fill="url(#textGradient)"
-          letter-spacing="4px">PALL</text>
-  </g>
-  
-  <!-- Network Commerce text -->
-  <text x="256" y="305" 
+  <!-- PALL text exactly like in reference -->
+  <text x="256" y="290" 
         font-family="Arial, sans-serif" 
-        font-size="14" 
-        font-weight="600" 
+        font-size="140" 
+        font-weight="bold" 
         text-anchor="middle" 
-        fill="rgba(255,255,255,0.9)"
-        letter-spacing="3px">Network</text>
-        
-  <text x="256" y="325" 
-        font-family="Arial, sans-serif" 
-        font-size="14" 
-        font-weight="600" 
-        text-anchor="middle" 
-        fill="rgba(255,255,255,0.9)"
-        letter-spacing="3px">Commerce</text>
-  
-  <!-- Corner decorative elements -->
-  <g opacity="0.3">
-    <circle cx="80" cy="80" r="3" fill="#22D3EE"/>
-    <circle cx="432" cy="80" r="3" fill="#22D3EE"/>
-    <circle cx="80" cy="432" r="3" fill="#22D3EE"/>
-    <circle cx="432" cy="432" r="3" fill="#22D3EE"/>
-  </g>
-  
-  <!-- Additional geometric accents -->
-  <g opacity="0.4" stroke="#22D3EE" stroke-width="1" fill="none">
-    <path d="M100 256 Q128 240 156 256 Q128 272 100 256"/>
-    <path d="M412 256 Q384 240 356 256 Q384 272 412 256"/>
-    <path d="M256 100 Q240 128 256 156 Q272 128 256 100"/>
-    <path d="M256 412 Q240 384 256 356 Q272 384 256 412"/>
-  </g>
+        fill="white"
+        letter-spacing="2px">Pall</text>
 </svg>
