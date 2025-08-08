@@ -1,0 +1,162 @@
+web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">Understand this warning
+index-50JXAmT9.js:1597 🔥 Starting Google sign-in...
+index-50JXAmT9.js:1597 🔥 Firebase config check: {authDomain: 'pall-network-app.firebaseapp.com', projectId: 'pall-network-app', hasApiKey: true}
+index-50JXAmT9.js:697  GET https://identitytoolkit.googleapis.com/v1/projects?key=AIzaSyDrgfCWW9hS8ZtTpMYDzKVJ7cuToFMXa-o 400 (Bad Request)
+(anonymous) @ index-50JXAmT9.js:697
+await in (anonymous)
+qT @ index-50JXAmT9.js:697
+Nc @ index-50JXAmT9.js:697
+R6 @ index-50JXAmT9.js:1447
+j6 @ index-50JXAmT9.js:1462
+_originValidation @ index-50JXAmT9.js:1537
+onExecution @ index-50JXAmT9.js:1402
+await in onExecution
+(anonymous) @ index-50JXAmT9.js:1387
+await in (anonymous)
+execute @ index-50JXAmT9.js:1387
+executeNotNull @ index-50JXAmT9.js:1402
+Vm @ index-50JXAmT9.js:1402
+signInWithGoogle @ index-50JXAmT9.js:1597
+o @ index-50JXAmT9.js:1597
+onClick @ index-50JXAmT9.js:1597
+uR @ index-50JXAmT9.js:37
+fR @ index-50JXAmT9.js:37
+hR @ index-50JXAmT9.js:37
+Jb @ index-50JXAmT9.js:37
+PA @ index-50JXAmT9.js:37
+(anonymous) @ index-50JXAmT9.js:37
+_v @ index-50JXAmT9.js:40
+tA @ index-50JXAmT9.js:37
+bm @ index-50JXAmT9.js:37
+Yy @ index-50JXAmT9.js:37
+kR @ index-50JXAmT9.js:37Understand this error
+index-50JXAmT9.js:1597 🔥 Google sign-in error: FirebaseError: Firebase: Error (auth/api-key-not-valid.-please-pass-a-valid-api-key.).
+    at ow (index-50JXAmT9.js:592:728)
+    at Ar (index-50JXAmT9.js:592:30)
+    at qT (index-50JXAmT9.js:697:1420)
+    at async j6 (index-50JXAmT9.js:1462:141)
+signInWithGoogle @ index-50JXAmT9.js:1597
+await in signInWithGoogle
+o @ index-50JXAmT9.js:1597
+onClick @ index-50JXAmT9.js:1597
+uR @ index-50JXAmT9.js:37
+fR @ index-50JXAmT9.js:37
+hR @ index-50JXAmT9.js:37
+Jb @ index-50JXAmT9.js:37
+PA @ index-50JXAmT9.js:37
+(anonymous) @ index-50JXAmT9.js:37
+_v @ index-50JXAmT9.js:40
+tA @ index-50JXAmT9.js:37
+bm @ index-50JXAmT9.js:37
+Yy @ index-50JXAmT9.js:37
+kR @ index-50JXAmT9.js:37Understand this error
+index-50JXAmT9.js:1597 🔥 Error code: auth/api-key-not-valid.-please-pass-a-valid-api-key.
+signInWithGoogle @ index-50JXAmT9.js:1597
+await in signInWithGoogle
+o @ index-50JXAmT9.js:1597
+onClick @ index-50JXAmT9.js:1597
+uR @ index-50JXAmT9.js:37
+fR @ index-50JXAmT9.js:37
+hR @ index-50JXAmT9.js:37
+Jb @ index-50JXAmT9.js:37
+PA @ index-50JXAmT9.js:37
+(anonymous) @ index-50JXAmT9.js:37
+_v @ index-50JXAmT9.js:40
+tA @ index-50JXAmT9.js:37
+bm @ index-50JXAmT9.js:37
+Yy @ index-50JXAmT9.js:37
+kR @ index-50JXAmT9.js:37Understand this error
+index-50JXAmT9.js:1597 🔥 Error message: Firebase: Error (auth/api-key-not-valid.-please-pass-a-valid-api-key.).
+signInWithGoogle @ index-50JXAmT9.js:1597
+await in signInWithGoogle
+o @ index-50JXAmT9.js:1597
+onClick @ index-50JXAmT9.js:1597
+uR @ index-50JXAmT9.js:37
+fR @ index-50JXAmT9.js:37
+hR @ index-50JXAmT9.js:37
+Jb @ index-50JXAmT9.js:37
+PA @ index-50JXAmT9.js:37
+(anonymous) @ index-50JXAmT9.js:37
+_v @ index-50JXAmT9.js:40
+tA @ index-50JXAmT9.js:37
+bm @ index-50JXAmT9.js:37
+Yy @ index-50JXAmT9.js:37
+kR @ index-50JXAmT9.js:37Understand this error
+index-50JXAmT9.js:1597 google sign in error: FirebaseError: Firebase: Error (auth/api-key-not-valid.-please-pass-a-valid-api-key.).
+    at ow (index-50JXAmT9.js:592:728)
+    at Ar (index-50JXAmT9.js:592:30)
+    at qT (index-50JXAmT9.js:697:1420)
+    at async j6 (index-50JXAmT9.js:1462:141)
+o @ index-50JXAmT9.js:1597
+await in o
+onClick @ index-50JXAmT9.js:1597
+uR @ index-50JXAmT9.js:37
+fR @ index-50JXAmT9.js:37
+hR @ index-50JXAmT9.js:37
+Jb @ index-50JXAmT9.js:37
+PA @ index-50JXAmT9.js:37
+(anonymous) @ index-50JXAmT9.js:37
+_v @ index-50JXAmT9.js:40
+tA @ index-50JXAmT9.js:37
+bm @ index-50JXAmT9.js:37
+Yy @ index-50JXAmT9.js:37
+kR @ index-50JXAmT9.js:37Understand this error
+chext_loader.js:69 Initialized chextloader at: 1754610235133
+iframe.js:271  GET https://www.googleapis.com/identitytoolkit/v3/relyingparty/getProjectConfig?key=AIzaSyDrgfCWW9hS8ZtTpMYDzKVJ7cuToFMXa-o&cb=1754610234644 400 (Bad Request)
+k.send @ iframe.js:271
+Sm.bm @ iframe.js:370
+Zm @ iframe.js:368
+(anonymous) @ iframe.js:374
+F @ iframe.js:156
+cn @ iframe.js:374
+(anonymous) @ iframe.js:382
+a @ iframe.js:155
+(anonymous) @ iframe.js:155
+c @ iframe.js:155
+e.Pc @ iframe.js:163
+lg @ iframe.js:166
+hg @ iframe.js:166
+F.zk @ iframe.js:165
+a @ iframe.js:155
+(anonymous) @ iframe.js:155
+c @ iframe.js:155
+Qf @ iframe.js:156
+a
+Jf @ iframe.js:156
+cg @ iframe.js:162
+F.then @ iframe.js:159
+Q @ iframe.js:382
+jn @ iframe.js:374
+(anonymous) @ iframe.js:574
+is.start @ iframe.js:573
+js.start @ iframe.js:574
+ls.start @ iframe.js:576
+os @ iframe.js:578
+(anonymous) @ iframe.js:579
+aj @ iframe.js:240
+b @ iframe.js:238Understand this error
+iframe.js:310 {"error":{"code":400,"message":"API key not valid. Please pass a valid API key.","errors":[{"message":"API key not valid. Please pass a valid API key.","domain":"global","reason":"badRequest"}],"status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"identitytoolkit.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]}}
+ml @ iframe.js:310
+(anonymous) @ iframe.js:579
+a @ iframe.js:155
+(anonymous) @ iframe.js:155
+c @ iframe.js:155
+e.vd @ iframe.js:163
+lg @ iframe.js:166
+hg @ iframe.js:166
+F.zk @ iframe.js:165
+a @ iframe.js:155
+(anonymous) @ iframe.js:155
+c @ iframe.js:155
+Qf @ iframe.js:156
+a
+Jf @ iframe.js:156
+cg @ iframe.js:162
+k.l @ iframe.js:160
+os @ iframe.js:578
+(anonymous) @ iframe.js:579
+aj @ iframe.js:240
+b @ iframe.js:238Understand this warning
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:55748)
+y @ content-all.js:1Understand this error
