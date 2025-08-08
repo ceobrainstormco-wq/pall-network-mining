@@ -5,7 +5,8 @@ const urlsToCache = [
   '/src/index.css',
   '/manifest.json',
   '/icon-192.png',
-  '/icon-512.png',
+  '/icon-512-new.svg',
+  '/pall-logo-new.svg',
   '/favicon.ico'
 ];
 

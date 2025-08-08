@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main blue gradient -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#93C5FD;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Text gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F1F5F9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E2E8F0;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Drop shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="url(#primaryGradient)" filter="url(#shadow)"/>
+  
+  <!-- Inner rings for depth -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <circle cx="256" cy="256" r="190" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <!-- Mining symbol - pickaxe/blockchain hybrid -->
+  <g opacity="0.2" fill="white">
+    <!-- Mining network pattern -->
+    <path d="M180 120 L200 140 L180 160 L160 140 Z"/>
+    <path d="M332 120 L352 140 L332 160 L312 140 Z"/>
+    <path d="M180 352 L200 372 L180 392 L160 372 Z"/>
+    <path d="M332 352 L352 372 L332 392 L312 372 Z"/>
+    
+    <!-- Connecting lines -->
+    <line x1="200" y1="140" x2="312" y2="140" stroke="white" stroke-width="2"/>
+    <line x1="200" y1="372" x2="312" y2="372" stroke="white" stroke-width="2"/>
+    <line x1="180" y1="160" x2="180" y2="352" stroke="white" stroke-width="2"/>
+    <line x1="332" y1="160" x2="332" y2="352" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- Main "PALL" text - Modern, Bold Font -->
+  <g filter="url(#glow)">
+    <text x="256" y="280" 
+          font-family="Arial, sans-serif" 
+          font-size="120" 
+          font-weight="900" 
+          text-anchor="middle" 
+          fill="url(#textGradient)"
+          letter-spacing="8px">PALL</text>
+  </g>
+  
+  <!-- Subtitle -->
+  <text x="256" y="320" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        font-weight="600" 
+        text-anchor="middle" 
+        fill="rgba(255,255,255,0.8)"
+        letter-spacing="4px">NETWORK</text>
+  
+  <!-- Crypto elements -->
+  <g opacity="0.6">
+    <!-- Blockchain cubes -->
+    <rect x="140" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    <rect x="160" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
+    <rect x="180" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    
+    <rect x="316" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    <rect x="336" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
+    <rect x="356" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    
+    <!-- Mining progress bars -->
+    <rect x="200" y="405" width="112" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+    <rect x="200" y="405" width="84" height="6" rx="3" fill="rgba(255,255,255,0.8)"/>
+  </g>
+  
+  <!-- Corner accents -->
+  <g opacity="0.4">
+    <circle cx="100" cy="100" r="4" fill="white"/>
+    <circle cx="412" cy="100" r="4" fill="white"/>
+    <circle cx="100" cy="412" r="4" fill="white"/>
+    <circle cx="412" cy="412" r="4" fill="white"/>
+  </g>
+</svg>

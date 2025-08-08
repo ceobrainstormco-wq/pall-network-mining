@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main blue gradient -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#93C5FD;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Text gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F1F5F9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E2E8F0;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="url(#primaryGradient)" filter="url(#shadow)"/>
+  
+  <!-- Main "PALL" text - Modern, Bold Font -->
+  <text x="256" y="280" 
+        font-family="Arial, sans-serif" 
+        font-size="120" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="url(#textGradient)"
+        letter-spacing="8px">PALL</text>
+  
+  <!-- Subtitle -->
+  <text x="256" y="320" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        font-weight="600" 
+        text-anchor="middle" 
+        fill="rgba(255,255,255,0.8)"
+        letter-spacing="4px">NETWORK</text>
+  
+  <!-- Mining elements -->
+  <g opacity="0.6">
+    <!-- Blockchain cubes -->
+    <rect x="220" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    <rect x="240" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
+    <rect x="260" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
+    <rect x="280" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
+    
+    <!-- Mining progress bar -->
+    <rect x="200" y="430" width="112" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+    <rect x="200" y="430" width="84" height="6" rx="3" fill="rgba(255,255,255,0.8)"/>
+  </g>
+</svg>
