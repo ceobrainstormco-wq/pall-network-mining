@@ -1,19 +1,11 @@
-import { MiningControls } from "./mining-controls";
-import { useMiningDb } from "@/hooks/use-mining-db";
+import { ContinuousMiningControls } from "./ContinuousMiningControls";
+import { useContinuousMining } from "@/hooks/use-continuous-mining";
 import { DollarSign } from "lucide-react";
 
 export function MiningDashboard() {
-  const { coins: totalCoins, canMine, timeUntilNextMine: remainingTime, speedMultiplier, isLoading } = useMiningDb();
+  const { totalCoins, isActive, progressPercentage } = useContinuousMining();
 
-  if (isLoading) {
-    return (
-      <main className="w-full max-w-md mx-auto">
-        <div className="flex items-center justify-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
-        </div>
-      </main>
-    );
-  }
+  // No loading state needed for continuous mining
 
   return (
     <main className="w-full max-w-md mx-auto">
@@ -40,38 +32,16 @@ export function MiningDashboard() {
         {/* Mining Status */}
         <div className="flex items-center justify-center mb-4" data-testid="mining-status">
           <div className="flex items-center">
-            <div className={`w-3 h-3 rounded-full mr-2 ${canMine ? 'bg-green-400 animate-pulse' : 'bg-orange-400'}`} />
-            <span className={`font-medium ${canMine ? 'text-green-400' : 'text-orange-400'}`}>
-              {canMine ? 'Ready to Mine' : 'Cooldown Active'}
+            <div className={`w-3 h-3 rounded-full mr-2 ${!isActive ? 'bg-green-400 animate-pulse' : 'bg-cyan-400 animate-pulse'}`} />
+            <span className={`font-medium ${!isActive ? 'text-green-400' : 'text-cyan-400'}`}>
+              {!isActive ? 'Ready to Mine' : `Mining Active - ${progressPercentage.toFixed(1)}%`}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Mining Controls */}
-      <MiningControls />
-
-      {/* Mining Info */}
-      <div className="bg-slate-800/20 backdrop-blur-md rounded-xl p-4 border border-purple-500/20 shadow-lg shadow-purple-500/10">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-slate-400">Mining Rate:</span>
-          <span className="text-green-400 font-semibold">{speedMultiplier} PALL / Click</span>
-        </div>
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-slate-400">Speed Multiplier:</span>
-          <span className={`font-semibold ${speedMultiplier > 1 ? 'text-cyan-400' : 'text-slate-400'}`}>
-            {speedMultiplier}x
-          </span>
-        </div>
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-slate-400">Cooldown:</span>
-          <span className="text-orange-400 font-semibold">24 Hours</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-slate-400">Network:</span>
-          <span className="text-cyan-400 font-semibold">Pall Blockchain</span>
-        </div>
-      </div>
+      {/* Continuous Mining Controls */}
+      <ContinuousMiningControls />
     </main>
   );
 }

@@ -39,17 +39,17 @@ export function MiningControls() {
             </>
           ) : isMining ? (
             <>
-              <RefreshCw className="w-6 h-6 mr-2 animate-spin" />
+              <RefreshCw className="icon-interactive w-6 h-6 mr-2 animate-spin" />
               Mining...
             </>
           ) : canMine ? (
             <>
-              <Zap className="w-6 h-6 mr-2" />
+              <Zap className="icon-interactive w-6 h-6 mr-2" />
               Start Mining
             </>
           ) : (
             <>
-              <RefreshCw className="w-6 h-6 mr-2" />
+              <RefreshCw className="icon-interactive w-6 h-6 mr-2" />
               Mining Cooldown
             </>
           )}
