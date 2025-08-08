@@ -34,7 +34,7 @@ export default function Home() {
         {/* Header */}
         <header className="text-center mb-8">
           {/* App Logo/Icon */}
-          <div className="w-16 h-16 rounded-2xl overflow-hidden mb-4 mx-auto shadow-lg border-2 border-cyan-400/30">
+          <div className="w-16 h-16 rounded-2xl overflow-hidden mb-4 mx-auto shadow-lg border-2 border-cyan-400/30 logo-interactive">
             <img 
               src="/pall-logo-new.svg" 
               alt="Pall Network Logo" 
@@ -63,10 +63,10 @@ export default function Home() {
         <div className="w-full max-w-md mx-auto mb-6">
           <Link href="/upgrades">
             <Button 
-              className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 transition-all duration-300 hover:scale-105"
+              className="btn-interactive w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3"
               data-testid="upgrades-button"
             >
-              <Zap className="w-5 h-5 mr-2" />
+              <Zap className="icon-interactive w-5 h-5 mr-2" />
               Mining Speed Upgrades
             </Button>
           </Link>

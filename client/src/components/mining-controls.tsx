@@ -24,17 +24,17 @@ export function MiningControls() {
         onClick={mine}
         disabled={!canMine || !user || isMining}
         data-testid="mine-button"
-        className={`w-full font-bold py-4 px-8 text-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg mb-4 ${
+        className={`btn-interactive w-full font-bold py-4 px-8 text-xl mb-4 ${
           canMine && user
-            ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:shadow-cyan-500/25 text-white' 
-            : 'bg-slate-600 text-slate-400 cursor-not-allowed hover:scale-100'
-        }`}
+            ? 'mining-button bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:shadow-cyan-500/25 text-white' 
+            : 'bg-slate-600 text-slate-400 cursor-not-allowed hover:transform-none'
+        } shadow-lg`}
         style={{ height: 'auto' }}
       >
         <span className="flex items-center justify-center">
           {!user ? (
             <>
-              <Lock className="w-6 h-6 mr-2" />
+              <Lock className="icon-interactive w-6 h-6 mr-2" />
               Please sign in to start mining
             </>
           ) : isMining ? (

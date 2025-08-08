@@ -23,17 +23,17 @@ interface MenuItemProps {
 }
 
 function MenuItem({ icon, label, href, onClick, danger = false }: MenuItemProps) {
-  const className = `w-full flex items-center px-4 py-3 text-left transition-colors duration-200 ${
+  const className = `menu-item-interactive w-full flex items-center px-4 py-3 text-left rounded-lg mx-2 mb-1 ${
     danger 
-      ? 'text-red-400 hover:bg-red-500/10 hover:text-red-300' 
-      : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
-  }`;
+      ? 'text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/30' 
+      : 'text-slate-300 hover:bg-slate-700/50 hover:text-white hover:border-cyan-400/30'
+  } border border-transparent`;
 
   if (href) {
     return (
       <Link href={href}>
         <button className={className} data-testid={`menu-${label.toLowerCase().replace(/\s+/g, '-')}`}>
-          <span className="mr-3">{icon}</span>
+          <span className="icon-interactive mr-3">{icon}</span>
           {label}
         </button>
       </Link>
@@ -46,7 +46,7 @@ function MenuItem({ icon, label, href, onClick, danger = false }: MenuItemProps)
       className={className}
       data-testid={`menu-${label.toLowerCase().replace(/\s+/g, '-')}`}
     >
-      <span className="mr-3">{icon}</span>
+      <span className="icon-interactive mr-3">{icon}</span>
       {label}
     </button>
   );
@@ -72,10 +72,12 @@ export function HamburgerMenu() {
           onClick={toggleMenu}
           variant="outline"
           size="sm"
-          className="bg-slate-800/80 backdrop-blur-md border-slate-600 text-slate-300 hover:bg-slate-700/80 hover:text-white"
+          className="btn-interactive bg-slate-800/80 backdrop-blur-md border-slate-600 text-slate-300 hover:bg-slate-700/80 hover:text-white hover:border-cyan-400/50"
           data-testid="hamburger-menu-button"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <div className={`hamburger-rotate ${isOpen ? 'open' : ''}`}>
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </div>
         </Button>
       </div>
 
@@ -94,7 +96,7 @@ export function HamburgerMenu() {
         {/* Header */}
         <div className="p-6 border-b border-slate-700/50">
           <div className="flex items-center">
-            <div className="w-10 h-10 rounded-xl overflow-hidden mr-3 border border-cyan-400/30">
+            <div className="w-10 h-10 rounded-xl overflow-hidden mr-3 border border-cyan-400/30 logo-interactive">
               <img 
                 src="/pall-logo-new.svg" 
                 alt="Pall Network" 

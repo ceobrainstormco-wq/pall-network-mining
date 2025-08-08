@@ -22,13 +22,13 @@ export function MiningDashboard() {
         {/* Coin Counter */}
         <div className="text-center mb-6">
           <div className="flex items-center justify-center mb-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mr-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mr-2 icon-interactive">
               <DollarSign className="w-5 h-5 text-yellow-900" />
             </div>
             <h2 className="text-2xl font-semibold text-slate-300">Total Coins</h2>
           </div>
           <div 
-            className="text-5xl md:text-6xl font-bold text-cyan-400 mb-2 transition-transform duration-300" 
+            className="text-5xl md:text-6xl font-bold text-cyan-400 mb-2 transition-all duration-500 hover:scale-105 cursor-pointer" 
             data-testid="coin-counter"
             id="coinCounter"
           >
