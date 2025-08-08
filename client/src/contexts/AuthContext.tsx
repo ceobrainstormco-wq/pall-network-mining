@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithRedirect, getRedirectResult, signOut } from 'firebase/auth';
 import { auth, googleProvider, facebookProvider, twitterProvider } from '@/lib/firebase';
 
 interface AuthContextType {
@@ -30,6 +30,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for redirect result on page load
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          console.log('🔥 Redirect sign-in successful:', result.user.email);
+          await syncUserWithDatabase(result.user);
+        }
+      } catch (error: any) {
+        console.error('🔥 Redirect result error:', error);
+      }
+    };
+    
+    checkRedirectResult();
+    
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       
@@ -73,15 +88,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithGoogle = async () => {
     try {
-      console.log('🔥 Starting Google sign-in...');
+      console.log('🔥 Starting Google sign-in with redirect...');
       console.log('🔥 Firebase config check:', {
         authDomain: auth.app.options.authDomain,
         projectId: auth.app.options.projectId,
         hasApiKey: !!auth.app.options.apiKey
       });
       
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log('🔥 Sign-in successful:', result.user.email);
+      // Use redirect instead of popup for better production compatibility
+      await signInWithRedirect(auth, googleProvider);
       
     } catch (error: any) {
       console.error('🔥 Google sign-in error:', error);
@@ -93,7 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithFacebook = async () => {
     try {
-      await signInWithPopup(auth, facebookProvider);
+      await signInWithRedirect(auth, facebookProvider);
     } catch (error: any) {
       console.error('Error signing in with Facebook:', error);
       throw error;
@@ -102,7 +117,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithTwitter = async () => {
     try {
-      await signInWithPopup(auth, twitterProvider);
+      await signInWithRedirect(auth, twitterProvider);
     } catch (error: any) {
       console.error('Error signing in with Twitter:', error);
       throw error;
