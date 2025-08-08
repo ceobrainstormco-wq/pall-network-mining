@@ -1,58 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Main blue gradient -->
-    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Outer ring gradient -->
+    <linearGradient id="outerRing" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
-      <stop offset="30%" style="stop-color:#3B82F6;stop-opacity:1" />
-      <stop offset="70%" style="stop-color:#60A5FA;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#93C5FD;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Inner circle gradient -->
+    <linearGradient id="innerCircle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1E293B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Swirl gradient -->
+    <linearGradient id="swirlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22D3EE;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1D4ED8;stop-opacity:1" />
     </linearGradient>
     
     <!-- Text gradient -->
     <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#F1F5F9;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#E2E8F0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#E2E8F0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#CBD5E1;stop-opacity:1" />
     </linearGradient>
     
     <!-- Drop shadow -->
     <filter id="shadow">
-      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
   
-  <!-- Background circle -->
-  <circle cx="256" cy="256" r="248" fill="url(#primaryGradient)" filter="url(#shadow)"/>
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="248" fill="url(#outerRing)" filter="url(#shadow)"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
   
-  <!-- Main "PALL" text - Modern, Bold Font -->
-  <text x="256" y="280" 
-        font-family="Arial, sans-serif" 
-        font-size="120" 
-        font-weight="900" 
-        text-anchor="middle" 
-        fill="url(#textGradient)"
-        letter-spacing="8px">PALL</text>
+  <!-- Inner circle -->
+  <circle cx="256" cy="256" r="200" fill="url(#innerCircle)"/>
   
-  <!-- Subtitle -->
-  <text x="256" y="320" 
+  <!-- Decorative rings -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+  
+  <!-- Swirl pattern -->
+  <g fill="url(#swirlGradient)" opacity="0.8">
+    <!-- Main swirl arms -->
+    <path d="M256 100 Q300 140 320 180 Q340 220 320 260 Q300 300 256 340 Q212 300 192 260 Q172 220 192 180 Q212 140 256 100 Z"/>
+    
+    <!-- Inner swirl -->
+    <path d="M256 140 Q280 160 290 190 Q300 220 290 250 Q280 280 256 300 Q232 280 222 250 Q212 220 222 190 Q232 160 256 140 Z" opacity="0.6"/>
+    
+    <!-- Center spiral -->
+    <circle cx="256" cy="220" r="8" fill="url(#swirlGradient)"/>
+    <circle cx="256" cy="220" r="4" fill="rgba(255,255,255,0.8)"/>
+  </g>
+  
+  <!-- PALL text -->
+  <g filter="url(#glow)">
+    <text x="256" y="280" 
+          font-family="Arial Black, sans-serif" 
+          font-size="48" 
+          font-weight="900" 
+          text-anchor="middle" 
+          fill="url(#textGradient)"
+          letter-spacing="4px">PALL</text>
+  </g>
+  
+  <!-- Network Commerce text -->
+  <text x="256" y="305" 
         font-family="Arial, sans-serif" 
-        font-size="24" 
+        font-size="14" 
         font-weight="600" 
         text-anchor="middle" 
-        fill="rgba(255,255,255,0.8)"
-        letter-spacing="4px">NETWORK</text>
-  
-  <!-- Mining elements -->
-  <g opacity="0.6">
-    <!-- Blockchain cubes -->
-    <rect x="220" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
-    <rect x="240" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
-    <rect x="260" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.7)"/>
-    <rect x="280" y="400" width="16" height="16" rx="2" fill="rgba(255,255,255,0.5)"/>
-    
-    <!-- Mining progress bar -->
-    <rect x="200" y="430" width="112" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
-    <rect x="200" y="430" width="84" height="6" rx="3" fill="rgba(255,255,255,0.8)"/>
-  </g>
+        fill="rgba(255,255,255,0.9)"
+        letter-spacing="3px">Network</text>
+        
+  <text x="256" y="325" 
+        font-family="Arial, sans-serif" 
+        font-size="14" 
+        font-weight="600" 
+        text-anchor="middle" 
+        fill="rgba(255,255,255,0.9)"
+        letter-spacing="3px">Commerce</text>
 </svg>
