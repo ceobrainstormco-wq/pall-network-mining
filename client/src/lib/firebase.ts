@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from "firebase/auth";
 
-// Firebase configuration - FIXED: Environment variables were swapped
+// Firebase configuration with correct environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: `${import.meta.env.VITE_FIREBASE_APP_ID}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_APP_ID,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_APP_ID}.firebasestorage.app`,
-  appId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebasestorage.app`,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Debug: Log Firebase config and current domain
