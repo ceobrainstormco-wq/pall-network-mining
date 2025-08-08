@@ -80,7 +80,7 @@ export function SignInForm() {
           {/* App Logo/Icon */}
           <div className="w-16 h-16 rounded-2xl overflow-hidden mb-4 mx-auto shadow-lg border-2 border-cyan-400/30">
             <img 
-              src="/pall-logo.jpg" 
+              src="/pall-logo-new.svg" 
               alt="Pall Network Logo" 
               className="w-full h-full object-cover"
             />

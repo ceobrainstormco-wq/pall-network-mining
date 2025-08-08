@@ -149,7 +149,7 @@ export default function About() {
             <div className="flex items-center justify-center mb-2">
               <div className="w-8 h-8 rounded-lg overflow-hidden mr-2">
                 <img 
-                  src="/pall-logo.jpg" 
+                  src="/pall-logo-new.svg" 
                   alt="Pall Network" 
                   className="w-full h-full object-cover"
                 />
