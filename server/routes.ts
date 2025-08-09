@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { nanoid } from "nanoid";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication sync endpoint
@@ -27,11 +28,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         // Create initial mining data
         await storage.createMiningData({
+          id: nanoid(),
           userId: uid,
           totalCoins: 0,
           miningStreak: 0,
           speedMultiplier: 1,
           isActive: true,
+        });
+
+        // Create initial wallet
+        await storage.createWallet({
+          id: nanoid(),
+          userId: uid,
+          pallBalance: 0,
+          usdtCommissions: 0,
         });
       } else {
         // Update existing user
@@ -100,6 +110,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         miningStreak: currentData.miningStreak + 1,
       });
 
+      // Sync wallet PALL balance with mining data total coins
+      const wallet = await storage.getWallet(userId);
+      if (wallet) {
+        await storage.updateWallet(userId, {
+          pallBalance: updatedData.totalCoins,
+        });
+      }
+
       res.json({
         success: true,
         miningData: updatedData,
@@ -131,6 +149,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('Get profile error:', error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Get user wallet data
+  app.get("/api/wallet/:userId", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      
+      const wallet = await storage.getWallet(userId);
+      const miningData = await storage.getMiningData(userId);
+      
+      if (!wallet) {
+        return res.status(404).json({ error: "Wallet not found" });
+      }
+
+      // Ensure wallet PALL balance is synced with mining total coins
+      let syncedWallet = wallet;
+      if (miningData && wallet.pallBalance !== miningData.totalCoins) {
+        syncedWallet = await storage.updateWallet(userId, {
+          pallBalance: miningData.totalCoins,
+        });
+      }
+
+      res.json({
+        wallet: syncedWallet,
+        miningData,
+      });
+    } catch (error) {
+      console.error('Get wallet error:', error);
       res.status(500).json({ error: "Internal server error" });
     }
   });

@@ -3,8 +3,9 @@ import { HamburgerMenu } from '@/components/navigation/HamburgerMenu';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'wouter';
-import { ArrowLeft, Download, Upload, Eye, Clock, CheckCircle, XCircle, Coins, DollarSign } from 'lucide-react';
+import { ArrowLeft, Download, Upload, Eye, Clock, CheckCircle, XCircle, Coins, DollarSign, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWallet } from '@/hooks/use-wallet';
 
 interface Transaction {
   id: string;
@@ -18,32 +19,83 @@ interface Transaction {
 
 export default function Wallet() {
   const { user } = useAuth();
+  const { pallBalance, usdtCommissions, isLoading, error } = useWallet();
   const [showComingSoon, setShowComingSoon] = useState(false);
 
-  // Mock data - in real implementation, this would come from your backend
-  const walletData = {
-    pallBalance: 125.50,
-    usdtCommissions: 23.75,
-    transactions: [
-      {
-        id: '1',
-        type: 'mining' as const,
-        amount: 1.0,
-        currency: 'PALL' as const,
-        status: 'completed' as const,
-        timestamp: new Date('2024-08-09T10:30:00'),
-      },
-      {
-        id: '2',
-        type: 'commission' as const,
-        amount: 1.25,
-        currency: 'USDT' as const,
-        status: 'completed' as const,
-        timestamp: new Date('2024-08-08T15:45:00'),
-        hash: '0x1234...abcd'
-      }
-    ]
-  };
+  // Mock transactions - in real implementation, this would come from your backend
+  const transactions: Transaction[] = [
+    {
+      id: '1',
+      type: 'mining',
+      amount: 1.0,
+      currency: 'PALL',
+      status: 'completed',
+      timestamp: new Date('2024-08-09T10:30:00'),
+    },
+    {
+      id: '2',
+      type: 'commission',
+      amount: 1.25,
+      currency: 'USDT',
+      status: 'completed',
+      timestamp: new Date('2024-08-08T15:45:00'),
+      hash: '0x1234...abcd'
+    }
+  ];
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen bg-slate-900 text-slate-50 font-sans">
+        <div className="fixed inset-0 pointer-events-none">
+          <img 
+            src="/crypto-background.svg" 
+            alt="" 
+            className="w-full h-full object-cover opacity-60"
+            style={{ minWidth: '100vw', minHeight: '100vh' }}
+          />
+          <div 
+            className="absolute inset-0 opacity-40" 
+            style={{
+              background: "radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.8) 70%, rgba(15, 23, 42, 0.95) 100%)"
+            }}
+          />
+        </div>
+        
+        <HamburgerMenu />
+        
+        <div className="relative min-h-screen flex items-center justify-center">
+          <div className="flex items-center space-x-3">
+            <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
+            <span className="text-lg text-slate-300">Loading wallet data...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="relative min-h-screen bg-slate-900 text-slate-50 font-sans">
+        <div className="fixed inset-0 pointer-events-none">
+          <img 
+            src="/crypto-background.svg" 
+            alt="" 
+            className="w-full h-full object-cover opacity-60"
+            style={{ minWidth: '100vw', minHeight: '100vh' }}
+          />
+        </div>
+        
+        <HamburgerMenu />
+        
+        <div className="relative min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-400 text-lg mb-4">Error loading wallet data</p>
+            <p className="text-slate-400">{error?.message || 'Unknown error'}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -170,7 +222,7 @@ export default function Wallet() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-white mb-2">
-                  {walletData.pallBalance.toFixed(2)}
+                  {pallBalance.toFixed(2)}
                 </div>
                 <p className="text-slate-400 text-sm">Mined tokens balance</p>
               </CardContent>
@@ -186,7 +238,7 @@ export default function Wallet() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-white mb-2">
-                  ${walletData.usdtCommissions.toFixed(2)}
+                  ${usdtCommissions.toFixed(2)}
                 </div>
                 <p className="text-slate-400 text-sm">Referral earnings</p>
               </CardContent>
@@ -203,7 +255,7 @@ export default function Wallet() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {walletData.transactions.map((tx) => (
+                {transactions.map((tx) => (
                   <div key={tx.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
                     <div className="flex items-center">
                       {getTransactionIcon(tx.type)}
@@ -230,7 +282,7 @@ export default function Wallet() {
                   </div>
                 ))}
                 
-                {walletData.transactions.length === 0 && (
+                {transactions.length === 0 && (
                   <div className="text-center py-8 text-slate-400">
                     No transactions yet
                   </div>

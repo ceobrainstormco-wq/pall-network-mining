@@ -1,4 +1,4 @@
-import { users, miningData, upgrades, type User, type InsertUser, type MiningData, type InsertMiningData, type Upgrade, type InsertUpgrade } from "@shared/schema";
+import { users, miningData, upgrades, wallets, type User, type InsertUser, type MiningData, type InsertMiningData, type Upgrade, type InsertUpgrade, type Wallet, type InsertWallet } from "@shared/schema";
 import { db } from "./db";
 import { eq, and } from "drizzle-orm";
 import { nanoid } from "nanoid";
@@ -20,6 +20,11 @@ export interface IStorage {
   getActiveUpgrade(userId: string): Promise<Upgrade | undefined>;
   createUpgrade(insertUpgrade: InsertUpgrade): Promise<Upgrade>;
   deactivateUpgrade(upgradeId: string): Promise<void>;
+  
+  // Wallet methods
+  getWallet(userId: string): Promise<Wallet | undefined>;
+  createWallet(insertWallet: InsertWallet): Promise<Wallet>;
+  updateWallet(userId: string, updates: Partial<InsertWallet>): Promise<Wallet>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -119,6 +124,36 @@ export class DatabaseStorage implements IStorage {
       .update(upgrades)
       .set({ isActive: false })
       .where(eq(upgrades.id, upgradeId));
+  }
+
+  // Wallet methods
+  async getWallet(userId: string): Promise<Wallet | undefined> {
+    const [wallet] = await db.select().from(wallets).where(eq(wallets.userId, userId));
+    return wallet || undefined;
+  }
+
+  async createWallet(insertWallet: InsertWallet): Promise<Wallet> {
+    const [wallet] = await db
+      .insert(wallets)
+      .values({
+        ...insertWallet,
+        id: nanoid(),
+        updatedAt: new Date(),
+      })
+      .returning();
+    return wallet;
+  }
+
+  async updateWallet(userId: string, updates: Partial<InsertWallet>): Promise<Wallet> {
+    const [wallet] = await db
+      .update(wallets)
+      .set({
+        ...updates,
+        updatedAt: new Date(),
+      })
+      .where(eq(wallets.userId, userId))
+      .returning();
+    return wallet;
   }
 }
 
