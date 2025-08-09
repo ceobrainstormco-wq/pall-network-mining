@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, onAuthStateChanged, signInWithRedirect, getRedirectResult, signOut } from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithRedirect, signInWithPopup, getRedirectResult, signOut } from 'firebase/auth';
 import { auth, googleProvider, facebookProvider, twitterProvider } from '@/lib/firebase';
 
 interface AuthContextType {
@@ -88,21 +88,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithGoogle = async () => {
     try {
-      console.log('🔥 Starting Google sign-in with redirect...');
+      console.log('🔥 Starting Google sign-in with popup...');
+      console.log('🔥 Current domain:', window.location.origin);
       console.log('🔥 Firebase config check:', {
         authDomain: auth.app.options.authDomain,
         projectId: auth.app.options.projectId,
         hasApiKey: !!auth.app.options.apiKey
       });
       
-      // Use redirect instead of popup for better production compatibility
-      await signInWithRedirect(auth, googleProvider);
+      // Use popup for better custom domain compatibility
+      const result = await signInWithPopup(auth, googleProvider);
+      
+      if (result.user) {
+        console.log('🔥 Google sign-in successful:', result.user.email);
+        await syncUserWithDatabase(result.user);
+      }
       
     } catch (error: any) {
       console.error('🔥 Google sign-in error:', error);
       console.error('🔥 Error code:', error.code);
       console.error('🔥 Error message:', error.message);
-      throw error;
+      
+      // If popup fails, try redirect as fallback
+      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+        console.log('🔥 Popup failed, trying redirect...');
+        await signInWithRedirect(auth, googleProvider);
+      } else {
+        throw error;
+      }
     }
   };
 

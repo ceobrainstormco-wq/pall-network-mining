@@ -10,23 +10,21 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Debug: Log Firebase config and current domain
-console.log('🔥 Firebase Config Check:', {
-  hasApiKey: !!firebaseConfig.apiKey,
-  authDomain: firebaseConfig.authDomain,
-  projectId: firebaseConfig.projectId,
-  hasAppId: !!firebaseConfig.appId,
-  currentURL: typeof window !== 'undefined' ? window.location.origin : 'server-side'
-});
+// Debug: Log Firebase config and current domain (Production Mode)
+if (import.meta.env.DEV) {
+  console.log('🔥 Firebase Config Check:', {
+    hasApiKey: !!firebaseConfig.apiKey,
+    authDomain: firebaseConfig.authDomain,
+    projectId: firebaseConfig.projectId,
+    hasAppId: !!firebaseConfig.appId,
+    currentURL: typeof window !== 'undefined' ? window.location.origin : 'server-side'
+  });
+}
 
-console.log('🔥 Environment Variables:', {
-  PROJECT_ID: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
-});
-
-// Log the exact domain that needs to be added to Firebase authorized domains
+// Always log current domain for auth troubleshooting
 if (typeof window !== 'undefined') {
-  console.log('🔥 ADD THIS DOMAIN TO FIREBASE AUTHORIZED DOMAINS:', window.location.origin);
+  console.log('🔥 Domain Check - Current:', window.location.origin);
+  console.log('🔥 Domain Check - Firebase Auth:', firebaseConfig.authDomain);
 }
 
 // Initialize Firebase
