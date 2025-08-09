@@ -66,6 +66,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Helper function to sync Firebase user with database
   const syncUserWithDatabase = async (firebaseUser: User) => {
     try {
+      // Get referral code from URL if present
+      const urlParams = new URLSearchParams(window.location.search);
+      const referralCode = urlParams.get('ref');
+      
       const response = await fetch('/api/auth/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -73,6 +77,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           uid: firebaseUser.uid,
           email: firebaseUser.email,
           displayName: firebaseUser.displayName,
+          referralCode: referralCode, // Pass referral code if present
           profilePicture: firebaseUser.photoURL,
           provider: firebaseUser.providerData[0]?.providerId || 'unknown',
         }),

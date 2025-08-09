@@ -1,12 +1,13 @@
-import { users, miningData, upgrades, wallets, type User, type InsertUser, type MiningData, type InsertMiningData, type Upgrade, type InsertUpgrade, type Wallet, type InsertWallet } from "@shared/schema";
+import { users, miningData, upgrades, wallets, referrals, commissions, type User, type InsertUser, type MiningData, type InsertMiningData, type Upgrade, type InsertUpgrade, type Wallet, type InsertWallet, type Referral, type InsertReferral, type Commission, type InsertCommission } from "@shared/schema";
 import { db } from "./db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, desc } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
 export interface IStorage {
   // User methods
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
   createUser(insertUser: InsertUser): Promise<User>;
   updateUser(id: string, updates: Partial<InsertUser>): Promise<User>;
   
@@ -25,6 +26,18 @@ export interface IStorage {
   getWallet(userId: string): Promise<Wallet | undefined>;
   createWallet(insertWallet: InsertWallet): Promise<Wallet>;
   updateWallet(userId: string, updates: Partial<InsertWallet>): Promise<Wallet>;
+  
+  // Referral methods
+  createReferral(insertReferral: InsertReferral): Promise<Referral>;
+  getReferralsByReferrer(referrerId: string): Promise<Referral[]>;
+  updateReferral(referralId: string, updates: Partial<InsertReferral>): Promise<Referral>;
+  
+  // Commission methods
+  createCommission(insertCommission: InsertCommission): Promise<Commission>;
+  getCommissionsByUser(userId: string): Promise<Commission[]>;
+  
+  // Referral reward methods
+  addReferralReward(userId: string, amount: number): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -36,6 +49,11 @@ export class DatabaseStorage implements IStorage {
 
   async getUserByEmail(email: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
     return user || undefined;
   }
 
@@ -154,6 +172,75 @@ export class DatabaseStorage implements IStorage {
       .where(eq(wallets.userId, userId))
       .returning();
     return wallet;
+  }
+
+  // Referral methods
+  async createReferral(insertReferral: InsertReferral): Promise<Referral> {
+    const [referral] = await db
+      .insert(referrals)
+      .values({
+        ...insertReferral,
+        id: nanoid(),
+      })
+      .returning();
+    return referral;
+  }
+
+  async getReferralsByReferrer(referrerId: string): Promise<Referral[]> {
+    return await db
+      .select()
+      .from(referrals)
+      .where(eq(referrals.referrerId, referrerId))
+      .orderBy(desc(referrals.createdAt));
+  }
+
+  async updateReferral(referralId: string, updates: Partial<InsertReferral>): Promise<Referral> {
+    const [referral] = await db
+      .update(referrals)
+      .set(updates)
+      .where(eq(referrals.id, referralId))
+      .returning();
+    return referral;
+  }
+
+  // Commission methods
+  async createCommission(insertCommission: InsertCommission): Promise<Commission> {
+    const [commission] = await db
+      .insert(commissions)
+      .values({
+        ...insertCommission,
+        id: nanoid(),
+      })
+      .returning();
+    return commission;
+  }
+
+  async getCommissionsByUser(userId: string): Promise<Commission[]> {
+    return await db
+      .select()
+      .from(commissions)
+      .where(eq(commissions.userId, userId))
+      .orderBy(desc(commissions.createdAt));
+  }
+
+  // Referral reward methods
+  async addReferralReward(userId: string, amount: number): Promise<void> {
+    // Update user's total referral rewards and referral count
+    const user = await this.getUser(userId);
+    if (user) {
+      await this.updateUser(userId, {
+        totalReferralRewards: (user.totalReferralRewards || 0) + amount,
+        totalReferrals: (user.totalReferrals || 0) + 1,
+      });
+
+      // Update wallet PALL balance to include referral rewards
+      const wallet = await this.getWallet(userId);
+      if (wallet) {
+        await this.updateWallet(userId, {
+          pallBalance: wallet.pallBalance + amount,
+        });
+      }
+    }
   }
 }
 

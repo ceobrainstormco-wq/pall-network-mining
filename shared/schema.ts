@@ -7,10 +7,12 @@ export const users = pgTable("users", {
   id: text("id").primaryKey(), // Firebase UID
   email: text("email").notNull().unique(),
   displayName: text("display_name").notNull(),
+  username: text("username").unique(), // User's chosen username (invitation code)
   profilePicture: text("profile_picture"),
   provider: text("provider").notNull(), // 'google', 'facebook', 'twitter'
   referralCode: text("referral_code").unique(),
-  referredBy: text("referred_by"), // Referral code of who referred this user
+  referredBy: text("referred_by"), // Username of who referred this user
+  totalReferralRewards: integer("total_referral_rewards").default(0).notNull(), // PALL tokens from referrals
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -42,7 +44,10 @@ export const upgrades = pgTable("upgrades", {
 export const referrals = pgTable("referrals", {
   id: text("id").primaryKey(),
   referrerId: text("referrer_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  referrerUsername: text("referrer_username").notNull(),
   referredUserId: text("referred_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  referredUsername: text("referred_username").notNull(),
+  signupRewardGiven: boolean("signup_reward_given").default(false).notNull(),
   level: integer("level").notNull(), // 1 = F1, 2 = F2
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -52,9 +57,12 @@ export const commissions = pgTable("commissions", {
   userId: text("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
   fromUserId: text("from_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
   upgradeId: text("upgrade_id").references(() => upgrades.id, { onDelete: "cascade" }).notNull(),
-  amountUsdt: integer("amount_usdt").notNull(), // Amount in USDT cents
+  packageType: text("package_type").notNull(), // 'bronze', 'silver', 'golden', 'diamond'
+  packageValue: integer("package_value").notNull(), // Package price in USD
+  amountUsdt: integer("amount_usdt").notNull(), // 5% commission in USDT cents
   commissionType: text("commission_type").notNull(), // 'f1' or 'f2'
   transactionHash: text("transaction_hash"),
+  isProcessed: boolean("is_processed").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

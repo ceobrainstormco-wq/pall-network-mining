@@ -3,14 +3,36 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { HamburgerMenu } from '@/components/navigation/HamburgerMenu';
 import { Link } from 'wouter';
-import { ArrowLeft, Gift, Copy, Users, Share } from 'lucide-react';
+import { ArrowLeft, Gift, Copy, Users, Share, AtSign, ExternalLink } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Invitation() {
-  const [inviteCode] = useState('PALL2024ABC');
-  const [referrals] = useState(3);
+  const { user } = useAuth();
   const { toast } = useToast();
+  
+  // Get user data for username and referral stats
+  const { data: userData, isLoading } = useQuery({
+    queryKey: ['/api/user', user?.uid],
+    enabled: !!user?.uid,
+  });
+
+  const inviteCode = userData?.username || 'SET_USERNAME_FIRST';
+  const referrals = userData?.totalReferrals || 0;
+  const referralRewards = userData?.totalReferralRewards || 0;
+  
+  const shareUrl = `https://pallnetworkcommerce.com/signup?ref=${encodeURIComponent(inviteCode)}`;
 
   const copyInviteCode = async () => {
+    if (inviteCode === 'SET_USERNAME_FIRST') {
+      toast({
+        title: "Username Required",
+        description: "Please set your username in Profile first to generate invitation code.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     try {
       await navigator.clipboard.writeText(inviteCode);
       toast({
@@ -26,21 +48,57 @@ export default function Invitation() {
     }
   };
 
+  const copyInviteLink = async () => {
+    if (inviteCode === 'SET_USERNAME_FIRST') {
+      toast({
+        title: "Username Required",
+        description: "Please set your username in Profile first to generate invitation link.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      toast({
+        title: "Link Copied!",
+        description: "Your invitation link has been copied to clipboard.",
+      });
+    } catch (error) {
+      toast({
+        title: "Copy Failed",
+        description: "Unable to copy link. Please copy manually.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const shareInviteCode = async () => {
-    const shareText = `Join me on Pall Network and start mining PALL tokens! Use my invitation code: ${inviteCode}`;
+    if (inviteCode === 'SET_USERNAME_FIRST') {
+      toast({
+        title: "Username Required",
+        description: "Please set your username in Profile first to share invitation.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const shareText = `Join me on Pall Network and start mining PALL tokens! Use my invitation code: ${inviteCode}\n\nSign up: ${shareUrl}`;
     
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Join Pall Network',
           text: shareText,
+          url: shareUrl,
         });
       } catch (error) {
         // User cancelled or error occurred
+        copyInviteLink();
       }
     } else {
       // Fallback to copy
-      copyInviteCode();
+      copyInviteLink();
     }
   };
 
@@ -106,7 +164,10 @@ export default function Invitation() {
             <div className="bg-slate-700/50 rounded-xl p-4 mb-4">
               <div className="flex items-center justify-between">
                 <div className="text-2xl font-bold text-yellow-400 tracking-wider" data-testid="invite-code">
-                  {inviteCode}
+                  {inviteCode === 'SET_USERNAME_FIRST' ? 
+                    <span className="text-lg text-slate-400">Set username first</span> : 
+                    inviteCode
+                  }
                 </div>
                 <Button
                   onClick={copyInviteCode}
@@ -114,8 +175,32 @@ export default function Invitation() {
                   variant="outline"
                   className="border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10"
                   data-testid="copy-code-button"
+                  disabled={inviteCode === 'SET_USERNAME_FIRST'}
                 >
                   <Copy className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Share URL Display */}
+            <div className="bg-slate-700/30 rounded-xl p-3 mb-4">
+              <div className="text-xs text-slate-400 mb-1">Share Link:</div>
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-cyan-400 font-mono truncate flex-1" data-testid="invite-url">
+                  {inviteCode === 'SET_USERNAME_FIRST' ? 
+                    'Set username to generate link' : 
+                    shareUrl
+                  }
+                </div>
+                <Button
+                  onClick={copyInviteLink}
+                  size="sm"
+                  variant="ghost"
+                  className="text-cyan-400 hover:bg-cyan-500/10 ml-2"
+                  data-testid="copy-link-button"
+                  disabled={inviteCode === 'SET_USERNAME_FIRST'}
+                >
+                  <ExternalLink className="w-4 h-4" />
                 </Button>
               </div>
             </div>
@@ -147,7 +232,7 @@ export default function Invitation() {
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-400">
-                  {referrals * 5}
+                  {referralRewards.toFixed(1)}
                 </div>
                 <div className="text-sm text-slate-400">Bonus PALL Earned</div>
               </div>
@@ -155,7 +240,7 @@ export default function Invitation() {
             
             <div className="mt-4 pt-4 border-t border-slate-700/50">
               <p className="text-xs text-slate-400 text-center">
-                You've invited {referrals} users and earned {referrals * 5} bonus PALL tokens!
+                You've invited {referrals} users and earned {referralRewards.toFixed(1)} bonus PALL tokens!
               </p>
             </div>
           </div>
@@ -174,7 +259,7 @@ export default function Invitation() {
               </li>
               <li className="flex items-start">
                 <span className="text-yellow-400 mr-2">3.</span>
-                Earn 5 PALL tokens for each successful referral
+                Earn 0.1 PALL tokens for each successful referral
               </li>
               <li className="flex items-start">
                 <span className="text-yellow-400 mr-2">4.</span>

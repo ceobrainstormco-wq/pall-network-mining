@@ -1,11 +1,14 @@
 import { ContinuousMiningControls } from "./ContinuousMiningControls";
 import { useContinuousMining } from "@/hooks/use-continuous-mining";
-import { DollarSign } from "lucide-react";
+import { useWallet } from "@/hooks/use-wallet";
+import { DollarSign, Gift, Users } from "lucide-react";
 
 export function MiningDashboard() {
   const { totalCoins, isActive, progressPercentage } = useContinuousMining();
+  const { pallBalance, miningBalance, referralRewards } = useWallet();
 
-  // No loading state needed for continuous mining
+  // Use database-synced balance instead of local storage for display
+  const displayBalance = pallBalance || totalCoins;
 
   return (
     <main className="w-full max-w-md mx-auto">
@@ -24,9 +27,29 @@ export function MiningDashboard() {
             data-testid="coin-counter"
             id="coinCounter"
           >
-            {totalCoins.toLocaleString()}
+            {displayBalance.toLocaleString()}
           </div>
-          <p className="text-slate-400">PALL Tokens Mined</p>
+          <p className="text-slate-400">Total PALL Tokens</p>
+          
+          {/* Balance Breakdown */}
+          {referralRewards > 0 && (
+            <div className="mt-3 p-3 bg-slate-700/30 rounded-lg">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center text-green-400">
+                  <Gift className="w-4 h-4 mr-2" />
+                  <span>Referral Rewards</span>
+                </div>
+                <span className="text-green-400 font-medium">+{referralRewards.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm mt-1">
+                <div className="flex items-center text-cyan-400">
+                  <DollarSign className="w-4 h-4 mr-2" />
+                  <span>Mining Balance</span>
+                </div>
+                <span className="text-cyan-400 font-medium">{miningBalance.toFixed(1)}</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Mining Status */}

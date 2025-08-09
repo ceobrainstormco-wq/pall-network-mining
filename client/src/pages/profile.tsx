@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { HamburgerMenu } from '@/components/navigation/HamburgerMenu';
 import { Link } from 'wouter';
-import { ArrowLeft, User, Save, Camera } from 'lucide-react';
+import { ArrowLeft, User, Save, Camera, AtSign } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Profile() {
@@ -76,11 +76,42 @@ export default function Profile() {
     }
   };
 
-  const handleSave = () => {
-    toast({
-      title: "Profile Updated",
-      description: "Your profile information has been saved successfully.",
-    });
+  const handleSave = async () => {
+    if (!formData.username) {
+      toast({
+        title: "Username Required",
+        description: "Please enter a username to use as your invitation code.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/user/${user?.uid}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: formData.username,
+          displayName: formData.fullName,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to update profile');
+      }
+
+      toast({
+        title: "Profile Updated",
+        description: "Your profile and invitation code have been saved successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Save Failed",
+        description: (error as Error).message,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -186,20 +217,24 @@ export default function Profile() {
         <div className="w-full max-w-md mx-auto">
           <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 border border-slate-700/30">
             <div className="space-y-6">
-              {/* Username */}
-              <div>
-                <Label htmlFor="username" className="text-slate-300 mb-2 block">
-                  Username
+              {/* Username - Invitation Code */}
+              <div className="p-4 bg-gradient-to-r from-cyan-500/10 to-green-500/10 border border-cyan-500/20 rounded-lg">
+                <Label htmlFor="username" className="text-cyan-400 font-semibold mb-2 block flex items-center">
+                  <AtSign className="w-4 h-4 mr-2" />
+                  Username (Invitation Code)
                 </Label>
                 <Input
                   id="username"
                   type="text"
-                  placeholder="Enter your username"
+                  placeholder="Enter your unique username"
                   value={formData.username}
                   onChange={(e) => handleInputChange('username', e.target.value)}
                   className="bg-slate-700/50 border-slate-600 text-white placeholder-slate-400"
                   data-testid="username-input"
                 />
+                <p className="text-xs text-slate-400 mt-2">
+                  This username will be your unique invitation code for referrals
+                </p>
               </div>
 
               {/* Full Name */}
