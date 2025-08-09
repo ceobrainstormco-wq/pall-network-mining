@@ -6,7 +6,7 @@ const urlsToCache = [
   '/manifest.json',
   '/icon-192.png',
   '/icon-512-new.svg',
-  '/pall-logo-new.svg',
+  '/pall-logo-new.png',
   '/favicon.ico'
 ];
 

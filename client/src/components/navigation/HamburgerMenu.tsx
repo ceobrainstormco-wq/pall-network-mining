@@ -98,7 +98,7 @@ export function HamburgerMenu() {
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-xl overflow-hidden mr-3 border border-cyan-400/30 logo-interactive">
               <img 
-                src="/pall-logo-new.svg" 
+                src="/pall-logo-new.png" 
                 alt="Pall Network" 
                 className="w-full h-full object-cover"
               />
