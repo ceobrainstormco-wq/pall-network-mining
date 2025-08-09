@@ -33,12 +33,14 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 
-// Initialize Auth Providers with custom parameters for domain issue fix
+// Initialize Auth Providers with optimized settings for custom domains
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope('email');
 googleProvider.addScope('profile');
 googleProvider.setCustomParameters({
-  prompt: 'select_account'
+  prompt: 'select_account',
+  include_granted_scopes: 'true',
+  access_type: 'online'
 });
 
 export const facebookProvider = new FacebookAuthProvider();

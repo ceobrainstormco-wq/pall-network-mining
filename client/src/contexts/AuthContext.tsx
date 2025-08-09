@@ -88,34 +88,49 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signInWithGoogle = async () => {
     try {
-      console.log('🔥 Starting Google sign-in with popup...');
+      console.log('🔥 Starting Google sign-in...');
       console.log('🔥 Current domain:', window.location.origin);
-      console.log('🔥 Firebase config check:', {
+      console.log('🔥 Firebase config:', {
         authDomain: auth.app.options.authDomain,
         projectId: auth.app.options.projectId,
         hasApiKey: !!auth.app.options.apiKey
       });
       
-      // Use popup for better custom domain compatibility
-      const result = await signInWithPopup(auth, googleProvider);
-      
-      if (result.user) {
-        console.log('🔥 Google sign-in successful:', result.user.email);
-        await syncUserWithDatabase(result.user);
+      // First try popup method
+      try {
+        console.log('🔥 Attempting popup sign-in...');
+        const result = await signInWithPopup(auth, googleProvider);
+        
+        if (result.user) {
+          console.log('🔥 Popup sign-in successful:', result.user.email);
+          await syncUserWithDatabase(result.user);
+          return;
+        }
+      } catch (popupError: any) {
+        console.log('🔥 Popup failed, trying redirect...', popupError.code);
+        
+        // If popup fails, use redirect
+        if (popupError.code === 'auth/popup-blocked' || 
+            popupError.code === 'auth/popup-closed-by-user' ||
+            popupError.code === 'auth/cancelled-popup-request') {
+          
+          console.log('🔥 Using redirect method...');
+          await signInWithRedirect(auth, googleProvider);
+          return;
+        }
+        
+        // Re-throw if it's a different error
+        throw popupError;
       }
       
     } catch (error: any) {
-      console.error('🔥 Google sign-in error:', error);
-      console.error('🔥 Error code:', error.code);
-      console.error('🔥 Error message:', error.message);
-      
-      // If popup fails, try redirect as fallback
-      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-        console.log('🔥 Popup failed, trying redirect...');
-        await signInWithRedirect(auth, googleProvider);
-      } else {
-        throw error;
-      }
+      console.error('🔥 Complete sign-in error:', error);
+      console.error('🔥 Error details:', {
+        code: error.code,
+        message: error.message,
+        stack: error.stack
+      });
+      throw error;
     }
   };
 

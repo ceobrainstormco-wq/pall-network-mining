@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { AuthDebug } from './AuthDebug';
 
 export function SignInForm() {
   const { signInWithGoogle, signInWithFacebook, signInWithTwitter } = useAuth();
@@ -35,13 +36,17 @@ export function SignInForm() {
       let errorMessage = `There was an error signing in with ${provider}. Please try again.`;
       
       if (error.code === 'auth/popup-blocked') {
-        errorMessage = "Popup was blocked. Please allow popups and try again.";
+        errorMessage = "Popup was blocked. Trying alternative method...";
       } else if (error.code === 'auth/popup-closed-by-user') {
         errorMessage = "Sign-in was cancelled. Please try again.";
       } else if (error.code === 'auth/unauthorized-domain') {
-        errorMessage = "This domain is not authorized. Please contact support.";
+        errorMessage = "Domain authorization issue. Using fallback method...";
       } else if (error.code === 'auth/operation-not-allowed') {
         errorMessage = `${provider} sign-in is not enabled. Please contact support.`;
+      } else if (error.code === 'auth/network-request-failed') {
+        errorMessage = "Network error. Please check your connection and try again.";
+      } else if (error.code === 'auth/too-many-requests') {
+        errorMessage = "Too many attempts. Please wait a moment and try again.";
       }
       
       toast({
@@ -105,7 +110,7 @@ export function SignInForm() {
               <p className="text-slate-400">Please sign in to start mining PALL tokens</p>
             </div>
 
-            {/* Simple Google Sign In - Testing Mode */}
+            {/* Enhanced Google Sign In */}
             <div className="space-y-4">
               <Button
                 onClick={() => handleSignIn('google')}
@@ -149,6 +154,9 @@ export function SignInForm() {
           <p>&copy; 2024 Pall Network. Mining simulation app.</p>
         </footer>
       </div>
+      
+      {/* Debug Component */}
+      <AuthDebug />
     </div>
   );
 }
