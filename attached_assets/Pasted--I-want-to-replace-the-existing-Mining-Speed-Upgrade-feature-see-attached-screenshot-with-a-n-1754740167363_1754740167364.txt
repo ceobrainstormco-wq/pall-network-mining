@@ -1,0 +1,84 @@
+
+
+I want to replace the existing “Mining Speed Upgrade” feature (see attached screenshot) with a new upgraded feature as follows:
+
+New Packages & Benefits:
+Bronze – $3
+
+200% faster token mining
+
+Silver – $14
+
+600% faster token mining
+
+Golden – $55
+
+3000% faster token mining
+
+Diamond – $100
+
+6000% faster token mining
+
+Common Benefits for all packages:
+
+Increase your booster buy %
+
+Entitled to profit-sharing benefit in PALL every month
+
+Referral commissions:
+
+F1 (First referral) = 5%
+
+F2 (Referral’s referral) = 2.5%
+
+No KYC required
+
+Additional benefits to enhance user experience
+
+Important Conditions:
+
+A package can only be purchased once per user (same package cannot be purchased again, but a different package can be purchased)
+
+User must connect their Web3 crypto wallet to purchase a package
+
+Payment must be made in USDT (BNB Smart Chain) only
+
+Payment is sent to my MetaMask wallet; once payment is confirmed, the package is activated
+
+My MetaMask wallet details must be kept secure
+
+Referral Commission Logic:
+
+F1 commission (5%) in USDT is credited to the referrer’s wallet immediately after the package is purchased
+
+F2 commission (2.5%) in USDT is credited to the first referral’s wallet immediately after the package is purchased
+
+UI Changes Required:
+Menu Bar
+
+Move the 3-line menu icon from right to left side
+
+Add Home and Wallet options in the menu
+
+Wallet Screen
+
+At the top, add two buttons:
+
+Withdraw (on click → show “Coming Soon”)
+
+Deposit (on click → show “Coming Soon”)
+
+Display:
+
+User’s mined PALL coin balance
+
+Referral commission in USDT
+
+Transaction history for both PALL and USDT
+
+Profile Screen
+
+Allow users to upload and save their profile picture
+
+Please update all related backend and frontend code to ensure smooth functioning, integrate the Web3 wallet connection for payments, and make the UI changes as described above.
+Ensure all wallet transactions and MetaMask wallet details are secure.
