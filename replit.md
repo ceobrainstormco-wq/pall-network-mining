@@ -23,13 +23,15 @@ This is a Progressive Web App (PWA) called "Pall Network" - a crypto mining simu
 - ✅ Environment variables swap issue - FIXED with correct PROJECT_ID and APP_ID mapping
 
 ## Recent Updates (August 9, 2025)
+- ✅ **NEW UPGRADE SYSTEM**: Completely redesigned with Bronze ($3), Silver ($14), Golden ($55), Diamond ($100) packages
+- ✅ **REFERRAL COMMISSIONS**: F1 (5%) and F2 (2.5%) commission system with instant USDT payouts
+- ✅ **WALLET INTEGRATION**: Added Web3 MetaMask wallet connection for USDT payments on BNB Smart Chain
+- ✅ **WALLET PAGE**: New wallet page with PALL balance, USDT commissions, and transaction history
+- ✅ **MENU REDESIGN**: Moved hamburger menu to left, added Home and Wallet options
+- ✅ **PROFILE ENHANCEMENT**: Profile picture upload functionality and enhanced user settings
+- ✅ **DATABASE SCHEMA**: Extended with referrals, commissions, and wallet tables
 - ✅ **FINAL PALL LOGO**: Updated to professional 3D blue circular logo with "P" symbol design  
-- ✅ **LOGO IMPLEMENTATION**: Updated all components, manifest.json, service worker, and PWA assets
 - ✅ **CONTINUOUS MINING SYSTEM**: Implemented 24-hour continuous mining with real-time progress tracking
-- ✅ **MICRO-INTERACTIONS**: Added comprehensive button and icon animations throughout the app
-- ✅ **PROGRESS BAR**: Real-time mining progress with countdown timer and percentage display
-- ✅ **OFFLINE PERSISTENCE**: Mining continues even when app is closed, progress saved in localStorage
-- ✅ **AUTO REWARDS**: Automatic coin distribution after 24-hour mining completion
 - ✅ **Custom Domain Setup**: pallnetworkcommerce.com configured with Replit (A record: 34.111.179.208)
 
 ## Current Status Update (August 9, 2025, 11:35 PM)
@@ -89,14 +91,15 @@ This is a Progressive Web App (PWA) called "Pall Network" - a crypto mining simu
 - **User-specific mining progress** stored per authenticated user
 - **Automatic sign-out functionality** with proper error handling
 
-## Upgrade System
-- **Mining Speed Upgrades** with three packages: 6 months (2x speed, 5 USDT), 1 year (3x speed, 8 USDT), unlimited (3x speed, 18 USDT)
+## Premium Package System (Updated August 9, 2025)
+- **Four Package Tiers**: Bronze ($3, 200% faster), Silver ($14, 600% faster), Golden ($55, 3000% faster), Diamond ($100, 6000% faster)
+- **Referral Commission System**: F1 referrals earn 5% USDT commission, F2 referrals earn 2.5% USDT commission
 - **Web3 Payment Integration** using USDT BEP-20 on BNB Smart Chain via MetaMask
-- **Secure payment processing** with transaction verification and blockchain confirmation
-- **Automatic upgrade activation** with immediate speed multiplier application
-- **Expiry tracking** for time-limited packages with automatic reversion to standard speed
-- **User-specific upgrade storage** tied to Firebase UID for persistent upgrade benefits
-- **Wallet address security** - recipient address stored only in backend Web3 code, never exposed in frontend
+- **One-time Purchase Policy**: Each package can only be purchased once per user (can upgrade to higher tiers)
+- **Instant Activation**: Package benefits activate immediately after payment confirmation
+- **Monthly Profit Sharing**: All package holders receive monthly PALL token dividends
+- **Booster Enhancement**: Increased booster buy percentages for all package holders
+- **No KYC Required**: Simplified purchase process without identity verification
 
 ## PWA Features
 - **Service Worker** for offline caching and background sync
@@ -105,9 +108,11 @@ This is a Progressive Web App (PWA) called "Pall Network" - a crypto mining simu
 - **Responsive design** optimized for mobile devices
 - **Offline-first approach** with localStorage fallback
 
-## Navigation System
-- **Hamburger menu** positioned in top-right corner for easy mobile access
-- **8 main sections**: Profile (user settings), Team (referral management), Invitation Code (sharing system), KYC Verification (coming soon), Language (multi-language support), About (project information), plus Sign Out
+## Navigation System (Updated August 9, 2025)
+- **Hamburger menu** positioned in top-left corner for better accessibility 
+- **10 main sections**: Home (mining dashboard), Wallet (PALL/USDT balances), Profile (enhanced with photo upload), Team (referral management), Invitation Code (sharing system), KYC Verification (coming soon), Language (multi-language support), About (project information), plus Sign Out
+- **Wallet Features**: Withdraw/Deposit buttons (coming soon), transaction history, commission tracking
+- **Profile Enhancement**: Profile picture upload, enhanced user information management
 - **Consistent navigation** across all pages with back buttons and menu integration
 - **Mobile-optimized** overlay menu with backdrop blur and smooth animations
 

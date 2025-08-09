@@ -1,4 +1,4 @@
-import { UpgradePanel } from "@/components/upgrades/UpgradePanel";
+import { NewUpgradePanel } from "@/components/upgrades/NewUpgradePanel";
 import { HamburgerMenu } from "@/components/navigation/HamburgerMenu";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -59,11 +59,11 @@ export default function Upgrades() {
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent mb-2">
             Pall Network
           </h1>
-          <p className="text-slate-400 text-lg">Mining Speed Upgrades</p>
+          <p className="text-slate-400 text-lg">Premium Mining Packages</p>
         </header>
 
         {/* Upgrade Panel */}
-        <UpgradePanel />
+        <NewUpgradePanel />
 
         {/* Footer */}
         <footer className="mt-16 text-center text-slate-500 text-sm">

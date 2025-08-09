@@ -1,28 +1,82 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { HamburgerMenu } from '@/components/navigation/HamburgerMenu';
 import { Link } from 'wouter';
-import { ArrowLeft, User, Save } from 'lucide-react';
+import { ArrowLeft, User, Save, Camera } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Profile() {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [profilePicture, setProfilePicture] = useState(user?.photoURL || '');
+  const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
-    fullName: '',
+    fullName: user?.displayName || '',
     gender: '',
     dateOfBirth: '',
   });
-  const { toast } = useToast();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleProfilePictureUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Invalid File",
+        description: "Please select an image file.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "File Too Large",
+        description: "Please select an image smaller than 5MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setProfilePicture(result);
+      };
+      reader.readAsDataURL(file);
+
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      toast({
+        title: "Profile Picture Updated",
+        description: "Your profile picture has been successfully updated.",
+      });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: "Failed to update profile picture. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSave = () => {
-    // Simulate saving profile data
     toast({
       title: "Profile Updated",
       description: "Your profile information has been saved successfully.",
@@ -78,6 +132,56 @@ export default function Profile() {
           <p className="text-slate-400">Manage your personal information</p>
         </div>
 
+        {/* Profile Picture Section */}
+        <div className="w-full max-w-md mx-auto mb-8">
+          <Card className="bg-slate-800/30 backdrop-blur-md border-slate-700/30">
+            <CardContent className="p-6">
+              <div className="text-center">
+                <div className="relative inline-block">
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-cyan-400/30 mx-auto">
+                    {profilePicture ? (
+                      <img 
+                        src={profilePicture} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-600 flex items-center justify-center">
+                        <User className="w-12 h-12 text-slate-400" />
+                      </div>
+                    )}
+                  </div>
+                  
+                  <Button
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    className="absolute -bottom-2 -right-2 rounded-full w-10 h-10 p-0 bg-cyan-600 hover:bg-cyan-500"
+                  >
+                    {isUploading ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <Camera className="w-4 h-4" />
+                    )}
+                  </Button>
+                </div>
+                
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfilePictureUpload}
+                  className="hidden"
+                />
+                
+                <p className="text-sm text-slate-400 mt-3">
+                  Click the camera icon to upload a new profile picture
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Profile Form */}
         <div className="w-full max-w-md mx-auto">
           <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 border border-slate-700/30">
@@ -112,6 +216,21 @@ export default function Profile() {
                   className="bg-slate-700/50 border-slate-600 text-white placeholder-slate-400"
                   data-testid="fullname-input"
                 />
+              </div>
+
+              {/* Email (Display Only) */}
+              <div>
+                <Label className="text-slate-300 mb-2 block">
+                  Email
+                </Label>
+                <Input
+                  value={user?.email || 'Not available'}
+                  disabled
+                  className="bg-slate-700/30 border-slate-600 text-slate-400"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  Email is managed by your authentication provider
+                </p>
               </div>
 
               {/* Gender */}

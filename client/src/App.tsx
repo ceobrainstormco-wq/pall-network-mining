@@ -8,6 +8,7 @@ import { AuthGuard } from "@/components/auth/AuthGuard";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Upgrades from "@/pages/upgrades";
+import Wallet from "@/pages/wallet";
 import Profile from "@/pages/profile";
 import Team from "@/pages/team";
 import Invitation from "@/pages/invitation";
@@ -20,6 +21,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/upgrades" component={Upgrades} />
+      <Route path="/wallet" component={Wallet} />
       <Route path="/profile" component={Profile} />
       <Route path="/team" component={Team} />
       <Route path="/invitation" component={Invitation} />

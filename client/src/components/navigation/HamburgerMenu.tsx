@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { 
   Menu, 
   X, 
+  Home,
+  Wallet,
   User, 
   Users, 
   Gift, 
@@ -67,7 +69,7 @@ export function HamburgerMenu() {
   return (
     <>
       {/* Hamburger Button */}
-      <div className="fixed top-6 right-6 z-50">
+      <div className="fixed top-6 left-6 z-50">
         <Button
           onClick={toggleMenu}
           variant="outline"
@@ -112,6 +114,16 @@ export function HamburgerMenu() {
 
         {/* Menu Items */}
         <div className="py-4">
+          <MenuItem
+            icon={<Home className="w-5 h-5" />}
+            label="Home"
+            href="/"
+          />
+          <MenuItem
+            icon={<Wallet className="w-5 h-5" />}
+            label="Wallet"
+            href="/wallet"
+          />
           <MenuItem
             icon={<User className="w-5 h-5" />}
             label="Profile"
