@@ -24,24 +24,25 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x android/gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: cd android && ./gradlew assembleDebug
 
       - name: Build Release APK (unsigned)
-        run: ./gradlew assembleRelease
+        run: cd android && ./gradlew assembleRelease
 
-      - name: Find and upload Debug APK
+      - name: List generated APK files
+        run: find android/app/build/outputs/apk -type f -name "*.apk"
+
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
-          path: |
-            **/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/debug/*.apk
 
-      - name: Find and upload Release APK (unsigned)
+      - name: Upload Release APK (unsigned)
         uses: actions/upload-artifact@v4
         with:
           name: app-release-unsigned.apk
-          path: |
-            **/build/outputs/apk/release/*.apk
+          path: android/app/build/outputs/apk/release/*.apk
