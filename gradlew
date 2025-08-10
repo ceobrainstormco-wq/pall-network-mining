@@ -1,3 +1,2 @@
 #!/bin/sh
-# Gradle wrapper shell script placeholder
-./gradle/wrapper/gradle-wrapper.jar "$@"
+echo 'This is a placeholder gradlew script.'

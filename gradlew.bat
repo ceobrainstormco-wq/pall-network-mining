@@ -1,3 +1,2 @@
 @echo off
-REM Gradle wrapper batch script placeholder
-gradle\wrapper\gradle-wrapper.jar %*
+echo This is a placeholder gradlew.bat script.
