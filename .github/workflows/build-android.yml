@@ -3,33 +3,37 @@ name: Android Build
 on: [push]
 
 jobs:
-  build:
+  build-apk:  # Changed job name to be more specific
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-
-    # 👇 MUST HAVE THESE STEPS
-    - name: Install Capacitor CLI
-      run: npm install -g @capacitor/cli
-      
-    - name: Sync Android plugins
-      run: npx cap sync android
-
-    - name: Build APK
-      run: |
-        cd android
-        ./gradlew assembleDebug
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-debug
-        path: android/app/build/outputs/apk/debug/*.apk
+      - name: Checkout code
+        uses: actions/checkout@v4  # Updated to latest version
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Updated to more recent LTS version
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Install Capacitor CLI
+        run: npm install -g @capacitor/cli
+        
+      - name: Sync Android plugins
+        run: npx cap sync android
+        
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug
+          
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug-apk
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android/app/build/outputs/apk/release/*.apk  # In case you build release later
+          retention-days: 1  # Keeps artifact for 1 day to save storage
