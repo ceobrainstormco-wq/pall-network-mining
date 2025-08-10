@@ -2,66 +2,43 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
+      # Set up Java (required for Android builds)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Install dependencies
-      run: npm ci
+      # Set up Android SDK
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Build web app
-      run: npm run build
+      # Give Gradle permission to run
+      - name: Make Gradlew Executable
+        run: chmod +x ./gradlew
 
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '11'   # Changed back to Java 11 for Capacitor compatibility
+      # Build the APK
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      # Upload the APK as an artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-android-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
 
-    - name: Sync Capacitor
-      run: npx cap sync android
-
-    - name: Build Debug APK
-      run: |
-        cd android
-        chmod +x ./gradlew
-        ./gradlew assembleDebug
-
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: pall-network-debug.apk
-        path: android/app/build/outputs/apk/debug/app-debug.apk
-
-    - name: Build Release APK (if needed)
-      run: |
-        cd android
-        chmod +x ./gradlew
-        ./gradlew assembleRelease
-      continue-on-error: true
-
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: pall-network-release.apk
-        path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-      continue-on-error: true
       
