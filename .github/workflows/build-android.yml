@@ -1,128 +1,69 @@
-name: Build Android APK (Capacitor)
+name: Build Android APK
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
 
+      # Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
+      # Build web app
       - name: Build web app
         run: npm run build
 
-      - name: Setup Java (JDK 11 for compatibility)
+      # Setup Java 17
+      - name: Setup Java (JDK 17)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
+      # Setup Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # Sync Capacitor Android
       - name: Sync Capacitor Android
         run: npx cap sync android
 
-      - name: Show android folder (debug)
-        run: ls -la android || true
+      # Make Gradlew executable
+      - name: Make Gradlew Executable
+        run: chmod +x android/gradlew
 
-      - name: Build Debug APK (gradlew in android/)
-        working-directory: android
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleDebug
-          else
-            echo "ERROR: android/gradlew not found. Add Gradle wrapper files to the repo (gradlew, gradlew.bat, gradle/)."
-            ls -la
-            exit 1
-          fi
+      # Build Debug APK
+      - name: Build Debug APK
+        run: cd android && ./gradlew assembleDebug
 
+      # Upload Debug APK
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: pall-network-debug.apk
+          name: app-debug.apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Build Release APK (optional)
-        working-directory: android
-        continue-on-error: true
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleRelease
-          else
-            echo "Skipping release - android/gradlew not found"
-            exit 1
-          fi
+      # Build Release APK (unsigned)
+      - name: Build Release APK
+        run: cd android && ./gradlew assembleRelease
 
-      - name: Upload Release APK (unsigned)
+      # Upload Release APK (unsigned)
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: pall-network-release.apk
+          name: app-release-unsigned.apk
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-        continue-on-error: true
-
-
-      
-
-      - name: Sync Capacitor Android
-        run: npx cap sync android
-
-      - name: Show android folder (debug)
-        run: ls -la android || true
-
-      - name: Build Debug APK (gradlew in android/)
-        working-directory: android
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleDebug
-          else
-            echo "ERROR: android/gradlew not found. Add Gradle wrapper files to the repo (gradlew, gradlew.bat, gradle/)."
-            ls -la
-            exit 1
-          fi
-
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: pall-network-debug.apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Build Release APK (optional)
-        working-directory: android
-        continue-on-error: true
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleRelease
-          else
-            echo "Skipping release - android/gradlew not found"
-            exit 1
-          fi
-
-      - name: Upload Release APK (unsigned)
-        uses: actions/upload-artifact@v4
-        with:
-          name: pall-network-release.apk
-          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-        continue-on-error: true
-
-
-      
+          
