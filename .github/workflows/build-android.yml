@@ -24,12 +24,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Make gradlew executable
-        run: |
-          if [ ! -f ./gradlew ]; then
-            echo "❌ gradlew not found. Make sure you have Android project root with gradlew file."
-            exit 1
-          fi
-          chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
@@ -37,15 +32,16 @@ jobs:
       - name: Build Release APK (unsigned)
         run: ./gradlew assembleRelease
 
-      - name: Upload Debug APK
+      - name: Find and upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: |
+            **/build/outputs/apk/debug/*.apk
 
-      - name: Upload Release APK (unsigned)
+      - name: Find and upload Release APK (unsigned)
         uses: actions/upload-artifact@v4
         with:
           name: app-release-unsigned.apk
-          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-          
+          path: |
+            **/build/outputs/apk/release/*.apk
