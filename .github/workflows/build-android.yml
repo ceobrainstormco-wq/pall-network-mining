@@ -1,13 +1,53 @@
-# Upload Debug APK
-- name: Upload Debug APK
-  uses: actions/upload-artifact@v4
-  with:
-    name: app-debug.apk
-    path: android/app/build/outputs/apk/debug/app-debug.apk
+name: Build Android APK
 
-# Upload Release APK (unsigned)
-- name: Upload Release APK
-  uses: actions/upload-artifact@v4
-  with:
-    name: app-release-unsigned.apk
-    path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Set up JDK 17
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3️⃣ Set up Android SDK
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      # 4️⃣ Make Gradlew Executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # 5️⃣ Build Debug APK
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      # 6️⃣ Build Release APK (Unsigned)
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      # 7️⃣ Upload Debug APK
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      # 8️⃣ Upload Release APK (Unsigned)
+      - name: Upload Release APK (unsigned)
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-unsigned.apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          
