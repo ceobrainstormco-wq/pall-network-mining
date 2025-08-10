@@ -80,3 +80,49 @@ jobs:
 
 
       
+
+      - name: Sync Capacitor Android
+        run: npx cap sync android
+
+      - name: Show android folder (debug)
+        run: ls -la android || true
+
+      - name: Build Debug APK (gradlew in android/)
+        working-directory: android
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew assembleDebug
+          else
+            echo "ERROR: android/gradlew not found. Add Gradle wrapper files to the repo (gradlew, gradlew.bat, gradle/)."
+            ls -la
+            exit 1
+          fi
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: pall-network-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Build Release APK (optional)
+        working-directory: android
+        continue-on-error: true
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew assembleRelease
+          else
+            echo "Skipping release - android/gradlew not found"
+            exit 1
+          fi
+
+      - name: Upload Release APK (unsigned)
+        uses: actions/upload-artifact@v4
+        with:
+          name: pall-network-release.apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+        continue-on-error: true
+
+
+      
