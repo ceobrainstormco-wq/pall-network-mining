@@ -25,11 +25,11 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # 3️⃣ Node.js setup (Capacitor needs Node)
+      # 3️⃣ Node.js setup (Capacitor needs Node >= 20)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       # 4️⃣ Install dependencies
       - name: Install dependencies
