@@ -43,8 +43,17 @@ jobs:
       - name: Build Debug APK
         run: cd android && ./gradlew assembleDebug
 
+      - name: Build Release APK (unsigned)
+        run: cd android && ./gradlew assembleRelease
+
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload Release APK (unsigned)
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-unsigned.apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
