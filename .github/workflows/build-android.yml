@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:   # Manual run button enable ho jaye ga
 
 jobs:
   build:
@@ -46,7 +47,7 @@ jobs:
           jarsigner -verify app-release-signed.apk
 
       - name: Upload Signed APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release-signed
           path: app-release-signed.apk
