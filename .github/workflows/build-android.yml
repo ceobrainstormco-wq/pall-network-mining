@@ -1,7 +1,10 @@
-name: Build Signed Release (APK & AAB)
+name: Build Android Signed APK & AAB
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build:
@@ -34,48 +37,24 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install required Android build tools
-        run: sdkmanager "build-tools;33.0.2"
-
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      - name: Build Release APK (unsigned)
-        run: cd android && ./gradlew assembleRelease
+      - name: Build Release APK & AAB (unsigned)
+        run: cd android && ./gradlew assembleRelease bundleRelease
 
-      - name: Build Release AAB (unsigned)
-        run: cd android && ./gradlew bundleRelease
+      # --- Signing Step ---
+      - name: Decode Keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/my-release-key.jks
 
-      - name: Sign APK
+      - name: Sign APK & AAB
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: android/app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          releaseDirectory: android/app/build/outputs/
+          signingKeyPath: android/app/my-release-key.jks
           alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "33.0.2"
 
-      - name: Sign AAB
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: android/app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "33.0.2"
-
+      # --- Upload artifacts ---
       - name: Upload Signed APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: signed-apk
-          path: android/app/build/outputs/apk/release/*.apk
-
-      - name: Upload Signed AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: signed-aab
-          path: android/app/build/outputs/bundle/release/*.aab
