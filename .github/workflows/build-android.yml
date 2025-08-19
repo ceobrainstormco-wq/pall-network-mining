@@ -1,10 +1,7 @@
-name: Build Android Signed APK
+name: Build Release APK
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:   # Manual run button enable ho jaye ga
+  workflow_dispatch:   # Manually run karne ke liye
 
 jobs:
   build:
@@ -20,6 +17,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Decode Keystore
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > my-release-key.jks
@@ -27,27 +27,8 @@ jobs:
       - name: Build Release APK
         run: ./gradlew assembleRelease
 
-      - name: Sign APK
-        run: |
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
-          -keystore my-release-key.jks \
-          -storepass ${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
-          -keypass ${{ secrets.ANDROID_KEY_PASSWORD }} \
-          app/build/outputs/apk/release/app-release-unsigned.apk \
-          ${{ secrets.ANDROID_KEY_ALIAS }}
-
-      - name: Zipalign APK
-        run: |
-          $ANDROID_SDK_ROOT/build-tools/34.0.0/zipalign -v -p 4 \
-          app/build/outputs/apk/release/app-release-unsigned.apk \
-          app-release-signed.apk
-
-      - name: Verify Signed APK
-        run: |
-          jarsigner -verify app-release-signed.apk
-
-      - name: Upload Signed APK
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-signed
-          path: app-release-signed.apk
+          name: release-apk
+          path: app/build/outputs/apk/release/app-release.apk
